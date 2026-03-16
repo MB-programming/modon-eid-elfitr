@@ -317,33 +317,75 @@
     .btn-generate:active { transform: translateY(0) scale(.97); }
 
     /* ════════════════════════
-       CARD SECTION
+       MODAL
     ════════════════════════ */
-    #card-section {
-      padding: 12px 24px 80px;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      display: none;
+    #card-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      visibility: hidden;
+      pointer-events: none;
     }
-    #card-section.visible { display: block; }
+    #card-modal.open {
+      visibility: visible;
+      pointer-events: auto;
+    }
 
-    .card-scale-wrap {
-      display: inline-block;
-      transform-origin: top center;
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 40, 35, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
+
+    .modal-box {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      max-height: 100dvh;
+      overflow-y: auto;
+      padding: 8px 0 20px;
+    }
+
+    /* Close button */
+    .modal-close {
+      position: absolute;
+      top: -4px;
+      left: 0;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .25s, transform .25s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,.28); transform: scale(1.1); }
+
     .card-frame {
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.1);
+      box-shadow: 0 32px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.12);
       display: inline-block;
     }
 
     /* ─── THE CARD ─── */
-    /* modon-fitr.png is the background; only name is overlaid */
     #greeting-card {
-      width: 420px;
-      /* aspect ratio matches modon-fitr.png (portrait ~3:4) */
+      width: min(420px, 86vw);
       aspect-ratio: 826 / 1102;
       background-image: url('modon-fitr.png');
       background-size: cover;
@@ -353,10 +395,9 @@
       display: block;
     }
 
-    /* Name overlay — positioned in the gap between bunting and blessing text */
+    /* Name overlay */
     .card-name-overlay {
       position: absolute;
-      /* ~63% from top = between the bunting flags and the blessing text in the image */
       top: 63%;
       left: 50%;
       transform: translateX(-50%);
@@ -373,17 +414,14 @@
     }
     .card-name {
       font-family: var(--font-body);
-      font-size: 28px;
+      font-size: clamp(20px, 5vw, 28px);
       font-weight: 700;
       color: #fff;
-      text-shadow:
-        0 2px 12px rgba(0,0,0,.35),
-        0 0 30px rgba(0,0,0,.2);
+      text-shadow: 0 2px 12px rgba(0,0,0,.35), 0 0 30px rgba(0,0,0,.2);
     }
 
     /* ─── Download button ─── */
     .btn-download {
-      margin-top: 26px;
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -420,9 +458,7 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 480px) {
-      .card-scale-wrap { transform: scale(.8); margin-bottom: -70px; }
-      .calligraphy     { font-size: 66px; }
-      #greeting-card   { width: 340px; }
+      .calligraphy { font-size: 66px; }
     }
   </style>
 </head>
@@ -501,20 +537,23 @@
     </div>
   </section>
 
-  <!-- CARD PREVIEW -->
-  <section id="card-section" aria-label="بطاقة التهنئة الشخصية" aria-live="polite">
-    <div class="card-scale-wrap">
-      <div class="card-frame">
-        <article id="greeting-card"
-                 role="img"
-                 aria-label="بطاقة تهنئة عيد الفطر المبارك من مدن">
-          <!-- modon-fitr.png is the background; only name overlaid -->
-          <div class="card-name-overlay">
-            <div class="card-name-label">المُهنَّأ</div>
-            <div class="card-name" id="card-name-display" lang="ar">اسمك هنا</div>
-          </div>
-        </article>
-      </div>
+</main>
+
+<!-- CARD MODAL -->
+<div id="card-modal" role="dialog" aria-modal="true" aria-label="بطاقة التهنئة الشخصية">
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close" aria-label="إغلاق">&#x2715;</button>
+
+    <div class="card-frame">
+      <article id="greeting-card"
+               role="img"
+               aria-label="بطاقة تهنئة عيد الفطر المبارك من مدن">
+        <div class="card-name-overlay">
+          <div class="card-name-label">المُهنَّأ</div>
+          <div class="card-name" id="card-name-display" lang="ar">اسمك هنا</div>
+        </div>
+      </article>
     </div>
 
     <button class="btn-download" id="btn-download" type="button"
@@ -527,9 +566,8 @@
       </svg>
       تحميل البطاقة
     </button>
-  </section>
-
-</main>
+  </div>
+</div>
 
 <footer role="contentinfo">
   <p lang="ar">جميع الحقوق محفوظة &copy; 1446هـ &nbsp;|&nbsp; الهيئة السعودية للمدن الصناعية ومناطق التقنية – مدن</p>
@@ -553,6 +591,51 @@
     wrap.appendChild(d);
   }
 })();
+
+
+/* ── Modal helpers ── */
+var modal = document.getElementById('card-modal');
+
+function openModal() {
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  modal.querySelector('.modal-close').focus();
+
+  if (window.gsap) {
+    gsap.fromTo('.modal-backdrop',
+      { opacity: 0 },
+      { opacity: 1, duration: .35, ease: 'power2.out' }
+    );
+    gsap.fromTo('.modal-box',
+      { opacity: 0, scale: .82, y: 40 },
+      { opacity: 1, scale: 1,   y: 0, duration: .55, ease: 'back.out(1.5)', delay: .05 }
+    );
+    gsap.from('.btn-download', {
+      opacity: 0, y: 18, duration: .45, ease: 'power2.out', delay: .35
+    });
+  }
+}
+
+function closeModal() {
+  if (window.gsap) {
+    gsap.to('.modal-box',      { opacity: 0, scale: .9, y: 30, duration: .3, ease: 'power2.in' });
+    gsap.to('.modal-backdrop', { opacity: 0, duration: .3, ease: 'power2.in',
+      onComplete: function () {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  } else {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+});
 
 
 /* ── Card Generator ── */
@@ -579,33 +662,15 @@ function generateCard() {
   document.getElementById('greeting-card')
     .setAttribute('aria-label', 'بطاقة تهنئة عيد الفطر المبارك باسم ' + name + ' من مدن');
 
-  var sec = document.getElementById('card-section');
-
-  if (!sec.classList.contains('visible')) {
-    sec.classList.add('visible');
-    if (window.gsap) {
-      gsap.fromTo(sec,
-        { opacity: 0, y: 70 },
-        { opacity: 1, y: 0, duration: 1.2, ease: 'back.out(1.2)' }
-      );
-      gsap.from('.card-frame', {
-        scale: .82, opacity: 0, duration: 1.05,
-        ease: 'back.out(1.6)', delay: .18
-      });
-      gsap.from('.btn-download', {
-        opacity: 0, y: 22, duration: .65, delay: .65, ease: 'power2.out'
-      });
-    }
-    setTimeout(function () {
-      sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 420);
-  } else {
+  if (modal.classList.contains('open')) {
     if (window.gsap) {
       gsap.fromTo('#card-name-display',
         { scale: 1.35, opacity: 0 },
         { scale: 1,    opacity: 1, duration: .5, ease: 'back.out(1.7)' }
       );
     }
+  } else {
+    openModal();
   }
 }
 
