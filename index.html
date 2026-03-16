@@ -9,7 +9,7 @@
   <title>عيد الفطر المبارك 1446هـ | تهنئة مدن MODON</title>
   <meta name="title"       content="عيد الفطر المبارك 1446هـ | تهنئة مدن MODON" />
   <meta name="description" content="تهنئة الهيئة السعودية للمدن الصناعية ومناطق التقنية (مدن) بمناسبة عيد الفطر المبارك 1446هـ. أدخل اسمك واحصل على بطاقة تهنئة شخصية احترافية يمكنك مشاركتها مع الأهل والأصدقاء." />
-  <meta name="keywords"    content="عيد الفطر المبارك, عيد مبارك 1446, تهنئة عيد الفطر, مدن, MODON, الهيئة السعودية للمدن الصناعية, بطاقة تهنئة شخصية, عيد الفطر" />
+  <meta name="keywords"    content="عيد الفطر المبارك, عيد مبارك 1446, تهنئة عيد الفطر, مدن, MODON, الهيئة السعودية للمدن الصناعية, بطاقة تهنئة شخصية" />
   <meta name="author"      content="مدن – MODON" />
   <meta name="robots"      content="index, follow" />
   <meta name="language"    content="Arabic" />
@@ -23,8 +23,6 @@
   <meta property="og:description"  content="تهنئة مدن بمناسبة عيد الفطر المبارك 1446هـ. أدخل اسمك واحصل على بطاقة تهنئة شخصية." />
   <meta property="og:image"        content="modon-fitr.png" />
   <meta property="og:image:alt"    content="بطاقة تهنئة عيد الفطر المبارك من مدن" />
-  <meta property="og:image:width"  content="1200" />
-  <meta property="og:image:height" content="630" />
   <meta property="og:locale"       content="ar_SA" />
   <meta property="og:site_name"    content="مدن – MODON" />
 
@@ -61,22 +59,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── Custom Font ─── */
     @font-face {
       font-family: 'EidFont';
       src: url('font.otf') format('opentype');
       font-display: swap;
     }
 
-    /* ─── Reset ─── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --teal:      #00C4A0;
-      --teal-mid:  #009E87;
       --teal-dark: #007264;
-      --teal-deep: #004D40;
-      --gold:      #D4AF37;
       --white:     #ffffff;
       --font-eid:  'EidFont', 'Cairo', serif;
       --font-body: 'Cairo', sans-serif;
@@ -99,7 +92,7 @@
     }
 
     /* ════════════════════════
-       CSS PARTICLES
+       PARTICLES
     ════════════════════════ */
     #particles {
       position: fixed;
@@ -108,31 +101,21 @@
       z-index: 0;
       overflow: hidden;
     }
-
     .pt {
       position: absolute;
       border-radius: 50%;
-      background: rgba(255, 220, 80, 0.55);
+      background: rgba(255, 220, 80, 0.5);
       animation: ptRise var(--dur, 8s) linear var(--del, 0s) infinite;
       width:  var(--sz, 5px);
       height: var(--sz, 5px);
-      left: var(--x, 50%);
+      left:   var(--x, 50%);
       bottom: -10px;
     }
-
     @keyframes ptRise {
-      0%   { transform: translateY(0)    translateX(0)          scale(.6); opacity: 0; }
-      8%   { opacity: .8; }
-      85%  { opacity: .5; }
-      100% { transform: translateY(-105vh) translateX(var(--dx, 20px)) scale(1.1); opacity: 0; }
-    }
-
-    /* ════════════════════════
-       LAYOUT
-    ════════════════════════ */
-    .wrap {
-      position: relative;
-      z-index: 1;
+      0%   { transform: translateY(0) translateX(0) scale(.6);                      opacity: 0; }
+      8%   {                                                                          opacity: .8; }
+      85%  {                                                                          opacity: .5; }
+      100% { transform: translateY(-105vh) translateX(var(--dx, 20px)) scale(1.1);  opacity: 0; }
     }
 
     /* ════════════════════════
@@ -144,17 +127,11 @@
       position: relative;
       z-index: 2;
     }
-
-    .logo-wrap {
-      display: inline-block;
-      /* JS-ready hides this; without JS it's always visible */
-    }
-
+    .logo-wrap { display: inline-block; }
     .logo {
       width: 110px;
       height: auto;
       filter: brightness(0) invert(1);
-      drop-shadow: 0 4px 16px rgba(0,0,0,.18);
     }
 
     /* ════════════════════════
@@ -165,16 +142,15 @@
       position: relative;
       z-index: 1;
       padding: 10px 0 80px;
-      min-height: 70vh;
+      min-height: 68vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
     .hero-inner {
       position: relative;
       width: 100%;
-      padding: 0 24px 130px;
+      padding: 0 24px 60px;
     }
 
     /* Arch */
@@ -186,17 +162,6 @@
       width: min(480px, 90vw);
       pointer-events: none;
     }
-
-    /* Balloons */
-    .balloon {
-      position: absolute;
-      top: -10px;
-      font-size: clamp(58px, 9vw, 88px);
-      line-height: 1;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,.22));
-    }
-    .balloon-left  { left:  clamp(0px, 4vw, 40px); }
-    .balloon-right { right: clamp(0px, 4vw, 40px); }
 
     /* Calligraphy */
     .calligraphy {
@@ -227,7 +192,6 @@
       height: 1px;
       background: rgba(255,255,255,.42);
     }
-
     .flag { width: 0; height: 0; margin: 0 3px; }
     .flag:nth-child(4n+1) { border-left:13px solid transparent; border-right:13px solid transparent; border-top:20px solid #e74c3c; }
     .flag:nth-child(4n+2) { border-left:13px solid transparent; border-right:13px solid transparent; border-top:20px solid #3498db; }
@@ -261,58 +225,31 @@
       width: 60px; height: 1px;
       background: rgba(255,255,255,.52);
     }
-    .divider-ornament { color: rgba(255,255,255,.8); font-size: 18px; }
-
-    /* Lanterns */
-    .lantern {
-      position: absolute;
-      bottom: 0;
-      font-size: clamp(68px, 11vw, 108px);
-      line-height: 1;
-      filter: drop-shadow(0 10px 22px rgba(0,0,0,.25));
+    .divider-inner {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.7);
     }
-    .lantern-left  { left:  clamp(-8px, 2vw, 8px); }
-    .lantern-right { right: clamp(-8px, 2vw, 8px); }
 
     /* ════════════════════════
-       CSS ENTRANCE ANIMATIONS
-       (no JS dependency)
+       ENTRANCE ANIMATIONS
     ════════════════════════ */
-    .anim-logo    { animation: aFadeDown  .9s  cubic-bezier(.22,1,.36,1)  .2s  both; }
-    .anim-arch    { animation: aFadeIn    1.2s cubic-bezier(.22,1,.36,1)  .4s  both; }
-    .anim-calli   { animation: aFadeUp   1.4s cubic-bezier(.22,1,.36,1)  .5s  both; }
-    .anim-bLeft   { animation: aFadeLeft  .9s  cubic-bezier(.34,1.56,.64,1) .7s both; }
-    .anim-bRight  { animation: aFadeRight .9s  cubic-bezier(.34,1.56,.64,1) .7s both; }
-    .anim-bunting { animation: aScaleX    .7s  cubic-bezier(.22,1,.36,1)  1.0s both; }
-    .anim-bless   { animation: aFadeUp    .9s  cubic-bezier(.22,1,.36,1)  1.1s both; }
-    .anim-divider { animation: aFadeIn    .7s  cubic-bezier(.22,1,.36,1)  1.3s both; }
-    .anim-lLeft   { animation: aFadeUp    .9s  cubic-bezier(.34,1.56,.64,1) 1.2s both; }
-    .anim-lRight  { animation: aFadeUp    .9s  cubic-bezier(.34,1.56,.64,1) 1.35s both; }
-    .anim-gen     { animation: aFadeUp    .9s  cubic-bezier(.22,1,.36,1)  1.4s both; }
+    .anim-logo    { animation: aFadeDown  .9s  cubic-bezier(.22,1,.36,1) .2s  both; }
+    .anim-arch    { animation: aFadeIn   1.2s  cubic-bezier(.22,1,.36,1) .4s  both; }
+    .anim-bunting { animation: aScaleX    .7s  cubic-bezier(.22,1,.36,1) 1.0s both; }
+    .anim-bless   { animation: aFadeUp    .9s  cubic-bezier(.22,1,.36,1) 1.1s both; }
+    .anim-divider { animation: aFadeIn    .7s  cubic-bezier(.22,1,.36,1) 1.3s both; }
+    .anim-gen     { animation: aFadeUp    .9s  cubic-bezier(.22,1,.36,1) 1.4s both; }
+
+    .calligraphy  { animation: aFadeUp   1.4s  cubic-bezier(.22,1,.36,1) .5s both, glowPulse 3s ease-in-out 2s infinite; }
 
     @keyframes aFadeDown  { from { opacity:0; transform:translateY(-30px); } to { opacity:1; transform:translateY(0); } }
     @keyframes aFadeUp    { from { opacity:0; transform:translateY(50px);  } to { opacity:1; transform:translateY(0); } }
-    @keyframes aFadeLeft  { from { opacity:0; transform:translateX(-30px); } to { opacity:1; transform:translateX(0); } }
-    @keyframes aFadeRight { from { opacity:0; transform:translateX(30px);  } to { opacity:1; transform:translateX(0); } }
     @keyframes aFadeIn    { from { opacity:0; }                              to { opacity:1; } }
-    @keyframes aScaleX    { from { opacity:0; transform:scaleX(0);         } to { opacity:1; transform:scaleX(1); } }
-
-    /* ─── Ambient loops ─── */
-    .balloon-left  { animation: aFadeLeft .9s cubic-bezier(.34,1.56,.64,1) .7s both, floatBL 3.2s ease-in-out 1.6s infinite; }
-    .balloon-right { animation: aFadeRight .9s cubic-bezier(.34,1.56,.64,1) .7s both, floatBR 2.9s ease-in-out 2.3s infinite; }
-    .lantern-left  { animation: aFadeUp .9s cubic-bezier(.34,1.56,.64,1) 1.2s both, floatLL 4.1s ease-in-out 2.1s infinite; }
-    .lantern-right { animation: aFadeUp .9s cubic-bezier(.34,1.56,.64,1) 1.35s both, floatLR 3.7s ease-in-out 3.0s infinite; }
-
-    @keyframes floatBL { 0%,100%{ transform:translateY(0)  rotate(0deg);  } 50%{ transform:translateY(-18px) rotate(6deg);  } }
-    @keyframes floatBR { 0%,100%{ transform:translateY(0)  rotate(0deg);  } 50%{ transform:translateY(-14px) rotate(-5deg); } }
-    @keyframes floatLL { 0%,100%{ transform:translateY(0)  rotate(0deg);  } 50%{ transform:translateY(-10px) rotate(3deg);  } }
-    @keyframes floatLR { 0%,100%{ transform:translateY(0)  rotate(0deg);  } 50%{ transform:translateY(-12px) rotate(-3deg); } }
-
-    /* Glow pulse on calligraphy */
-    .calligraphy { animation: aFadeUp 1.4s cubic-bezier(.22,1,.36,1) .5s both, glowPulse 3s ease-in-out 2s infinite; }
-    @keyframes glowPulse {
+    @keyframes aScaleX    { from { opacity:0; transform:scaleX(0); }        to { opacity:1; transform:scaleX(1); } }
+    @keyframes glowPulse  {
       0%,100% { text-shadow: 0 4px 30px rgba(0,0,0,.12), 0 0 40px rgba(255,255,255,.06); }
-      50%     { text-shadow: 0 4px 40px rgba(0,0,0,.12), 0 0 80px rgba(255,255,255,.2);  }
+      50%     { text-shadow: 0 4px 40px rgba(0,0,0,.12), 0 0 80px rgba(255,255,255,.22); }
     }
 
     /* ════════════════════════
@@ -324,28 +261,23 @@
       position: relative;
       z-index: 2;
     }
-
     .gen-inner { max-width: 500px; margin: 0 auto; }
-
     .gen-inner h2 {
       font-size: clamp(20px, 4vw, 27px);
       font-weight: 700;
       margin-bottom: 8px;
     }
-
     .gen-inner p {
       font-size: 15px;
       color: rgba(255,255,255,.78);
       margin-bottom: 28px;
     }
-
     .input-group {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .name-input {
       flex: 1;
       min-width: 200px;
@@ -367,7 +299,6 @@
       background: rgba(255,255,255,.22);
       box-shadow: 0 0 0 4px rgba(255,255,255,.1);
     }
-
     .btn-generate {
       padding: 15px 32px;
       border-radius: 50px;
@@ -401,125 +332,53 @@
       display: inline-block;
       transform-origin: top center;
     }
-
     .card-frame {
-      border-radius: 26px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,.38), 0 0 0 1px rgba(255,255,255,.12);
+      box-shadow: 0 32px 80px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.1);
       display: inline-block;
     }
 
     /* ─── THE CARD ─── */
+    /* modon-fitr.png is the background; only name is overlaid */
     #greeting-card {
       width: 420px;
-      background: linear-gradient(155deg, #00C9A7 0%, #009688 48%, #00695C 100%);
+      /* aspect ratio matches modon-fitr.png (portrait ~3:4) */
+      aspect-ratio: 826 / 1102;
+      background-image: url('modon-fitr.png');
+      background-size: cover;
+      background-position: center top;
       position: relative;
       overflow: hidden;
-      padding: 44px 32px 54px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      display: block;
     }
 
-    .card-arch {
+    /* Name overlay — positioned in the gap between bunting and blessing text */
+    .card-name-overlay {
       position: absolute;
-      top: -40px;
+      /* ~63% from top = between the bunting flags and the blessing text in the image */
+      top: 63%;
       left: 50%;
       transform: translateX(-50%);
-      width: 92%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Sparkle dots */
-    .card-sparkles { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .sparkle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,.65);
-      animation: twinkle var(--dur,3s) ease-in-out var(--del,0s) infinite alternate;
-    }
-    @keyframes twinkle {
-      from { opacity: .1; transform: scale(.5); }
-      to   { opacity: .75; transform: scale(1.3); }
-    }
-
-    .card-logo {
-      width: 86px; height: auto;
-      filter: brightness(0) invert(1);
-      position: relative; z-index: 2;
-      margin-bottom: 14px;
-    }
-
-    .card-calligraphy {
-      font-family: var(--font-eid);
-      font-size: 88px;
-      line-height: 1;
-      color: #fff;
-      text-shadow: 0 2px 18px rgba(0,0,0,.1);
-      position: relative; z-index: 2;
-      margin-bottom: 6px;
-    }
-
-    .card-bunting {
-      display: flex;
-      justify-content: center;
-      position: relative; z-index: 2;
-      margin: 10px 0 20px;
-    }
-    .card-bunting::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 1px; background: rgba(255,255,255,.38);
-    }
-    .card-bunting .flag { margin: 0 2px; }
-
-    .card-name-block {
-      position: relative; z-index: 2;
-      margin-bottom: 14px;
-      background: rgba(255,255,255,.13);
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 14px;
-      padding: 10px 28px 12px;
+      text-align: center;
+      white-space: nowrap;
     }
     .card-name-label {
+      font-family: var(--font-body);
       font-size: 11px;
-      color: rgba(255,255,255,.7);
       font-weight: 600;
-      letter-spacing: 1.2px;
-      margin-bottom: 2px;
+      color: rgba(255,255,255,.75);
+      letter-spacing: 1.5px;
+      margin-bottom: 3px;
     }
     .card-name {
-      font-size: 26px;
+      font-family: var(--font-body);
+      font-size: 28px;
       font-weight: 700;
       color: #fff;
-      text-shadow: 0 2px 10px rgba(0,0,0,.14);
-      min-width: 160px;
-    }
-
-    .card-divider {
-      position: relative; z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .card-divider::before, .card-divider::after {
-      content: ''; display: block;
-      width: 48px; height: 1px;
-      background: rgba(255,255,255,.42);
-    }
-    .card-divider-ornament { color: rgba(255,255,255,.75); font-size: 13px; }
-
-    .card-blessing {
-      font-size: 12.5px;
-      line-height: 2;
-      color: rgba(255,255,255,.9);
-      position: relative; z-index: 2;
-      max-width: 300px;
-      margin: 0 auto;
+      text-shadow:
+        0 2px 12px rgba(0,0,0,.35),
+        0 0 30px rgba(0,0,0,.2);
     }
 
     /* ─── Download button ─── */
@@ -561,17 +420,17 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 480px) {
-      .card-scale-wrap { transform: scale(.78); margin-bottom: -80px; }
-      .calligraphy { font-size: 66px; }
+      .card-scale-wrap { transform: scale(.8); margin-bottom: -70px; }
+      .calligraphy     { font-size: 66px; }
+      #greeting-card   { width: 340px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ════ PARTICLES (CSS-driven, no Three.js) ════ -->
 <div id="particles" aria-hidden="true"></div>
 
-<!-- ════ HEADER ════ -->
+<!-- HEADER -->
 <header role="banner">
   <a href="https://modon.gov.sa" target="_blank" rel="noopener noreferrer"
      aria-label="الموقع الرسمي لمدن MODON" class="logo-wrap anim-logo">
@@ -579,14 +438,13 @@
   </a>
 </header>
 
-<!-- ════ MAIN ════ -->
 <main role="main">
 
-  <!-- ── Hero ── -->
+  <!-- HERO -->
   <section id="hero" class="hero" aria-label="تهنئة عيد الفطر المبارك">
     <div class="hero-inner">
 
-      <!-- Arch -->
+      <!-- Arch SVG -->
       <svg class="arch-bg anim-arch" viewBox="0 0 440 520" fill="none" aria-hidden="true">
         <path d="M 22 520 L 22 255 Q 22 175 44 125 Q 75 55 220 8 Q 365 55 396 125 Q 418 175 418 255 L 418 520 Z"
               fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.13)" stroke-width="1.4"/>
@@ -594,18 +452,12 @@
               fill="rgba(255,255,255,.055)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
         <path d="M 100 520 L 100 278 Q 100 218 118 178 Q 148 118 220 78 Q 292 118 322 178 Q 340 218 340 278 L 340 520 Z"
               fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.05)" stroke-width=".6"/>
-        <circle cx="220" cy="8"  r="5" fill="rgba(255,255,255,.22)"/>
-        <circle cx="220" cy="8"  r="9" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+        <circle cx="220" cy="8" r="5" fill="rgba(255,255,255,.22)"/>
+        <circle cx="220" cy="8" r="9" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
       </svg>
 
-      <!-- Balloons -->
-      <div class="balloon balloon-left"  aria-hidden="true">🎈</div>
-      <div class="balloon balloon-right" aria-hidden="true">🎈</div>
-
-      <!-- Calligraphy h1 -->
       <h1 class="calligraphy" lang="ar">عيد مبارك</h1>
 
-      <!-- Bunting -->
       <div class="bunting anim-bunting" aria-hidden="true" role="presentation">
         <div class="flag"></div><div class="flag"></div><div class="flag"></div>
         <div class="flag"></div><div class="flag"></div><div class="flag"></div>
@@ -614,25 +466,19 @@
         <div class="flag"></div><div class="flag"></div>
       </div>
 
-      <!-- Blessing -->
       <p class="blessing anim-bless" lang="ar">
         يطيب لـي تهنئتكـم بمناسبـة عيـد الفطـر المبارك<br />
         سائلًا المولى عز وجل أن يعيده علينا وعليكم باليُمن<br />
         والبركات، وأن يتقبـل منـا ومنكـم صالـح الأعمـال
       </p>
 
-      <!-- Divider -->
       <div class="divider anim-divider" aria-hidden="true">
-        <span class="divider-ornament">❋</span>
+        <div class="divider-inner"></div>
       </div>
-
-      <!-- Lanterns -->
-      <div class="lantern lantern-left"  aria-hidden="true">🏮</div>
-      <div class="lantern lantern-right" aria-hidden="true">🏮</div>
     </div>
   </section>
 
-  <!-- ── Generator ── -->
+  <!-- GENERATOR -->
   <section id="generator" class="generator" aria-label="أنشئ بطاقتك الشخصية">
     <div class="gen-inner anim-gen">
       <h2>أنشئ بطاقتك الشخصية</h2>
@@ -649,56 +495,24 @@
           aria-label="أدخل اسمك الكريم"
         />
         <button class="btn-generate" id="btn-generate" type="button">
-          ✨ أنشئ البطاقة
+          أنشئ البطاقة
         </button>
       </div>
     </div>
   </section>
 
-  <!-- ── Card Preview ── -->
+  <!-- CARD PREVIEW -->
   <section id="card-section" aria-label="بطاقة التهنئة الشخصية" aria-live="polite">
     <div class="card-scale-wrap">
       <div class="card-frame">
         <article id="greeting-card"
                  role="img"
                  aria-label="بطاقة تهنئة عيد الفطر المبارك من مدن">
-
-          <svg class="card-arch" viewBox="0 0 420 490" fill="none" aria-hidden="true">
-            <path d="M 20 490 L 20 240 Q 20 165 42 118 Q 74 52 210 8 Q 346 52 378 118 Q 400 165 400 240 L 400 490 Z"
-                  fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.15)" stroke-width="1.2"/>
-            <path d="M 56 490 L 56 250 Q 56 185 76 142 Q 106 80 210 38 Q 314 80 344 142 Q 364 185 364 250 L 364 490 Z"
-                  fill="rgba(255,255,255,.055)"/>
-            <circle cx="210" cy="8" r="4" fill="rgba(255,255,255,.22)"/>
-          </svg>
-
-          <div class="card-sparkles" aria-hidden="true"></div>
-
-          <img src="Modon-01.png" alt="شعار مدن MODON" class="card-logo"
-               width="86" height="86" crossorigin="anonymous" />
-
-          <div class="card-calligraphy" lang="ar" aria-label="عيد مبارك">عيد مبارك</div>
-
-          <div class="card-bunting" aria-hidden="true">
-            <div class="flag"></div><div class="flag"></div><div class="flag"></div>
-            <div class="flag"></div><div class="flag"></div><div class="flag"></div>
-            <div class="flag"></div><div class="flag"></div><div class="flag"></div>
-            <div class="flag"></div><div class="flag"></div>
-          </div>
-
-          <div class="card-name-block">
+          <!-- modon-fitr.png is the background; only name overlaid -->
+          <div class="card-name-overlay">
             <div class="card-name-label">المُهنَّأ</div>
             <div class="card-name" id="card-name-display" lang="ar">اسمك هنا</div>
           </div>
-
-          <div class="card-divider" aria-hidden="true">
-            <span class="card-divider-ornament">❋</span>
-          </div>
-
-          <p class="card-blessing" lang="ar">
-            يطيب لـي تهنئتكـم بمناسبـة عيـد الفطـر المبارك<br />
-            سائلًا المولى عز وجل أن يعيده علينا وعليكم باليُمن<br />
-            والبركات، وأن يتقبـل منـا ومنكـم صالـح الأعمـال
-          </p>
         </article>
       </div>
     </div>
@@ -717,80 +531,45 @@
 
 </main>
 
-<!-- ════ FOOTER ════ -->
 <footer role="contentinfo">
   <p lang="ar">جميع الحقوق محفوظة &copy; 1446هـ &nbsp;|&nbsp; الهيئة السعودية للمدن الصناعية ومناطق التقنية – مدن</p>
 </footer>
 
-<!-- ════ SCRIPTS ════ -->
-<!-- GSAP – no integrity hash to avoid SRI block on local file:// -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
-/* ════════════════════════════════════════
-   CSS PARTICLES — Pure JS, no Three.js
-════════════════════════════════════════ */
-(function spawnParticles() {
+/* ── Particles ── */
+(function () {
   var wrap = document.getElementById('particles');
-  var count = 45;
-  for (var i = 0; i < count; i++) {
-    var d   = document.createElement('div');
-    var sz  = (Math.random() * 5 + 2).toFixed(1);
-    var dur = (Math.random() * 9 + 6).toFixed(1);
-    var del = (Math.random() * 10).toFixed(1);
-    var x   = (Math.random() * 100).toFixed(1);
-    var dx  = ((Math.random() - 0.5) * 80).toFixed(0);
+  for (var i = 0; i < 45; i++) {
+    var d = document.createElement('div');
     d.className = 'pt';
     d.style.cssText =
-      '--sz:' + sz + 'px;' +
-      '--dur:' + dur + 's;' +
-      '--del:-' + del + 's;' +   /* negative delay = running already */
-      '--x:' + x + '%;' +
-      '--dx:' + dx + 'px;';
+      '--sz:'  + (Math.random() * 5 + 2).toFixed(1)  + 'px;' +
+      '--dur:' + (Math.random() * 9 + 6).toFixed(1)  + 's;'  +
+      '--del:-'+ (Math.random() * 10).toFixed(1)      + 's;'  +
+      '--x:'   + (Math.random() * 100).toFixed(1)     + '%;'  +
+      '--dx:'  + ((Math.random() - 0.5) * 80).toFixed(0) + 'px;';
     wrap.appendChild(d);
   }
 })();
 
 
-/* ════════════════════════════════════════
-   CARD SPARKLES
-════════════════════════════════════════ */
-(function spawnSparkles() {
-  var wrap = document.querySelector('.card-sparkles');
-  for (var i = 0; i < 18; i++) {
-    var d  = document.createElement('div');
-    var sz = (Math.random() * 3.5 + 1).toFixed(1);
-    d.className = 'sparkle';
-    d.style.cssText =
-      'width:' + sz + 'px;height:' + sz + 'px;' +
-      'top:'  + (Math.random() * 100).toFixed(1) + '%;' +
-      'left:' + (Math.random() * 100).toFixed(1) + '%;' +
-      '--dur:' + (Math.random() * 2.5 + 1.5).toFixed(1) + 's;' +
-      '--del:' + (Math.random() * 2).toFixed(1) + 's;';
-    wrap.appendChild(d);
-  }
-})();
-
-
-/* ════════════════════════════════════════
-   CARD GENERATOR
-════════════════════════════════════════ */
+/* ── Card Generator ── */
 function generateCard() {
   var input = document.getElementById('name-field');
   var name  = input.value.trim();
 
   if (!name) {
-    /* Shake animation via GSAP if available, CSS fallback otherwise */
     if (window.gsap) {
       gsap.to(input, {
         x: -9, duration: .07, yoyo: true, repeat: 6,
         ease: 'power1.inOut',
-        onComplete: function() { gsap.set(input, { x: 0 }); }
+        onComplete: function () { gsap.set(input, { x: 0 }); }
       });
     } else {
-      input.style.outline = '2px solid rgba(255,100,100,.6)';
-      setTimeout(function() { input.style.outline = ''; }, 600);
+      input.style.borderColor = 'rgba(255,100,100,.8)';
+      setTimeout(function () { input.style.borderColor = ''; }, 600);
     }
     input.focus();
     return;
@@ -804,7 +583,6 @@ function generateCard() {
 
   if (!sec.classList.contains('visible')) {
     sec.classList.add('visible');
-
     if (window.gsap) {
       gsap.fromTo(sec,
         { opacity: 0, y: 70 },
@@ -818,10 +596,9 @@ function generateCard() {
         opacity: 0, y: 22, duration: .65, delay: .65, ease: 'power2.out'
       });
     }
-    setTimeout(function() {
+    setTimeout(function () {
       sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 420);
-
   } else {
     if (window.gsap) {
       gsap.fromTo('#card-name-display',
@@ -835,54 +612,91 @@ function generateCard() {
 document.getElementById('btn-generate')
   .addEventListener('click', generateCard);
 document.getElementById('name-field')
-  .addEventListener('keydown', function(e) { if (e.key === 'Enter') generateCard(); });
+  .addEventListener('keydown', function (e) { if (e.key === 'Enter') generateCard(); });
 
 
 /* ════════════════════════════════════════
-   DOWNLOAD
+   DOWNLOAD — Canvas 2D (no html2canvas)
+   Draws modon-fitr.png then writes the
+   name on top at the correct position.
 ════════════════════════════════════════ */
-document.getElementById('btn-download').addEventListener('click', async function () {
-  var btn = this;
-  btn.innerHTML = '⏳ جاري التحميل...';
-  btn.disabled  = true;
+document.getElementById('btn-download').addEventListener('click', function () {
+  var btn  = this;
+  var name = document.getElementById('card-name-display').textContent.trim();
 
-  if (document.fonts && document.fonts.ready) {
-    await document.fonts.ready;
+  if (!name || name === 'اسمك هنا') {
+    document.getElementById('name-field').focus();
+    return;
   }
 
-  try {
-    var card = document.getElementById('greeting-card');
-    var cvs  = await html2canvas(card, {
-      scale: 2.5,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: null,
-      logging: false
-    });
+  btn.querySelector('svg') && (btn.querySelector('svg').style.display = 'none');
+  btn.dataset.origText = btn.childNodes[btn.childNodes.length - 1].textContent;
+  btn.childNodes[btn.childNodes.length - 1].textContent = ' جاري التحميل...';
+  btn.disabled = true;
 
-    var name = (document.getElementById('card-name-display').textContent || 'مدن')
-                 .replace(/\s+/g, '_');
-    var link = document.createElement('a');
-    link.download = 'تهنئة_عيد_الفطر_' + name + '.png';
-    link.href = cvs.toDataURL('image/png', 1);
-    link.click();
+  var img = new Image();
+  img.onload = function () {
+    var W = img.naturalWidth;
+    var H = img.naturalHeight;
 
-    btn.innerHTML =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>' +
-      ' تم التحميل بنجاح!';
+    var canvas = document.createElement('canvas');
+    canvas.width  = W;
+    canvas.height = H;
+    var ctx = canvas.getContext('2d');
 
-    setTimeout(function() {
-      btn.innerHTML =
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
-        ' تحميل البطاقة';
+    /* Draw the full card image */
+    ctx.drawImage(img, 0, 0, W, H);
+
+    /* Wait for fonts then draw name */
+    var render = function () {
+      /* Semi-transparent backing strip (subtle) */
+      var nameY = H * 0.635;   /* ~63.5% from top — between bunting & blessing */
+      var fontSize = Math.round(W * 0.075);  /* ~7.5% of width */
+
+      ctx.save();
+      ctx.textAlign    = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.direction    = 'rtl';
+      ctx.font         = 'bold ' + fontSize + 'px Cairo, sans-serif';
+
+      /* Shadow for legibility */
+      ctx.shadowColor   = 'rgba(0,0,0,0.45)';
+      ctx.shadowBlur    = 18;
+      ctx.shadowOffsetY = 3;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(name, W / 2, nameY);
+      ctx.restore();
+
+      /* Trigger download */
+      var link = document.createElement('a');
+      link.download = 'تهنئة_عيد_الفطر_' + name.replace(/\s+/g, '_') + '.png';
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+
+      /* Reset button */
       btn.disabled = false;
-    }, 2800);
+      if (btn.querySelector('svg')) btn.querySelector('svg').style.display = '';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' تحميل البطاقة';
+    };
 
-  } catch (err) {
-    console.error(err);
-    btn.innerHTML = '❌ حدث خطأ – حاول مرة أخرى';
-    btn.disabled  = false;
-  }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(render);
+    } else {
+      render();
+    }
+  };
+
+  img.onerror = function () {
+    btn.disabled = false;
+    btn.childNodes[btn.childNodes.length - 1].textContent = ' حدث خطأ — حاول مرة أخرى';
+    setTimeout(function () {
+      if (btn.querySelector('svg')) btn.querySelector('svg').style.display = '';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' تحميل البطاقة';
+    }, 2500);
+  };
+
+  img.src = 'modon-fitr.png';
 });
 </script>
 </body>
