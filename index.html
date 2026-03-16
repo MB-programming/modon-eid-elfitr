@@ -355,26 +355,28 @@
       padding: 8px 0 20px;
     }
 
-    /* Close button */
+    /* Close button — fixed outside the card */
     .modal-close {
-      position: absolute;
-      top: -4px;
-      left: 0;
-      width: 38px; height: 38px;
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      width: 44px; height: 44px;
       border-radius: 50%;
       border: none;
-      background: rgba(255,255,255,.15);
-      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       color: #fff;
-      font-size: 20px;
+      font-size: 22px;
       line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background .25s, transform .25s;
+      z-index: 101;
     }
-    .modal-close:hover { background: rgba(255,255,255,.28); transform: scale(1.1); }
+    .modal-close:hover { background: rgba(255,255,255,.32); transform: scale(1.1); }
 
     .card-frame {
       border-radius: 20px;
@@ -398,19 +400,11 @@
     /* Name overlay */
     .card-name-overlay {
       position: absolute;
-      top: 63%;
+      top: 70%;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
       white-space: nowrap;
-    }
-    .card-name-label {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(255,255,255,.75);
-      letter-spacing: 1.5px;
-      margin-bottom: 3px;
     }
     .card-name {
       font-family: var(--font-body);
@@ -542,15 +536,14 @@
 <!-- CARD MODAL -->
 <div id="card-modal" role="dialog" aria-modal="true" aria-label="بطاقة التهنئة الشخصية">
   <div class="modal-backdrop" id="modal-backdrop"></div>
+  <button class="modal-close" id="modal-close" aria-label="إغلاق">&#x2715;</button>
   <div class="modal-box">
-    <button class="modal-close" id="modal-close" aria-label="إغلاق">&#x2715;</button>
 
     <div class="card-frame">
       <article id="greeting-card"
                role="img"
                aria-label="بطاقة تهنئة عيد الفطر المبارك من مدن">
         <div class="card-name-overlay">
-          <div class="card-name-label">المُهنَّأ</div>
           <div class="card-name" id="card-name-display" lang="ar">اسمك هنا</div>
         </div>
       </article>
@@ -715,7 +708,7 @@ document.getElementById('btn-download').addEventListener('click', function () {
     /* Wait for fonts then draw name */
     var render = function () {
       /* Semi-transparent backing strip (subtle) */
-      var nameY = H * 0.635;   /* ~63.5% from top — between bunting & blessing */
+      var nameY = H * 0.70;   /* 70% from top */
       var fontSize = Math.round(W * 0.075);  /* ~7.5% of width */
 
       ctx.save();
@@ -737,7 +730,10 @@ document.getElementById('btn-download').addEventListener('click', function () {
       var link = document.createElement('a');
       link.download = 'تهنئة_عيد_الفطر_' + name.replace(/\s+/g, '_') + '.png';
       link.href = canvas.toDataURL('image/png', 1.0);
+      link.style.display = 'none';
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
 
       /* Reset button */
       btn.disabled = false;
