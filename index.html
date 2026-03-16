@@ -75,7 +75,7 @@
       --font-body: 'Cairo', sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: var(--font-body);
@@ -178,11 +178,13 @@
     /* Bunting */
     .bunting {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       align-items: flex-start;
       position: relative;
       z-index: 2;
       margin: 14px auto 0;
+      max-width: 100%;
       width: fit-content;
     }
     .bunting::before {
@@ -257,6 +259,7 @@
     ════════════════════════ */
     .generator {
       padding: 56px 24px 80px;
+      margin-top: -260px;
       text-align: center;
       position: relative;
       z-index: 2;
@@ -674,9 +677,24 @@ document.getElementById('name-field')
 
 
 /* ════════════════════════════════════════
+   NAME POSITION CONFIG
+   Edit these two values to move the name.
+   NAME_X : 0–100  (% from left, 50 = center)
+   NAME_Y : 0–100  (% from top)
+════════════════════════════════════════ */
+var NAME_X = 50;
+var NAME_Y = 70;
+
+/* Apply to CSS overlay */
+(function () {
+  var overlay = document.querySelector('.card-name-overlay');
+  overlay.style.top  = NAME_Y + '%';
+  overlay.style.left = NAME_X + '%';
+})();
+
+
+/* ════════════════════════════════════════
    DOWNLOAD — Canvas 2D (no html2canvas)
-   Draws modon-fitr.png then writes the
-   name on top at the correct position.
 ════════════════════════════════════════ */
 document.getElementById('btn-download').addEventListener('click', function () {
   var btn  = this;
@@ -708,11 +726,12 @@ document.getElementById('btn-download').addEventListener('click', function () {
     /* Wait for fonts then draw name */
     var render = function () {
       /* Semi-transparent backing strip (subtle) */
-      var nameY = H * 0.70;   /* 70% from top */
+      var nameX    = W * (NAME_X / 100);
+      var nameY    = H * (NAME_Y / 100);
       var fontSize = Math.round(W * 0.075);  /* ~7.5% of width */
 
       ctx.save();
-      ctx.textAlign    = 'center';
+      ctx.textAlign    = NAME_X === 50 ? 'center' : (NAME_X < 50 ? 'right' : 'left');
       ctx.textBaseline = 'middle';
       ctx.direction    = 'rtl';
       ctx.font         = 'bold ' + fontSize + 'px Cairo, sans-serif';
@@ -723,7 +742,7 @@ document.getElementById('btn-download').addEventListener('click', function () {
       ctx.shadowOffsetY = 3;
 
       ctx.fillStyle = '#ffffff';
-      ctx.fillText(name, W / 2, nameY);
+      ctx.fillText(name, nameX, nameY);
       ctx.restore();
 
       /* Trigger download */
