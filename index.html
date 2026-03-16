@@ -681,7 +681,7 @@ document.getElementById('name-field')
    NAME_Y : 0–100  (% from top)
 ════════════════════════════════════════ */
 var NAME_X = 50;
-var NAME_Y = 70;
+var NAME_Y = 85;
 
 /* Apply to CSS overlay */
 (function () {
@@ -692,7 +692,7 @@ var NAME_Y = 70;
 
 
 /* ════════════════════════════════════════
-   DOWNLOAD — Canvas 2D (no html2canvas)
+   DOWNLOAD — Canvas 2D
 ════════════════════════════════════════ */
 document.getElementById('btn-download').addEventListener('click', function () {
   var btn  = this;
@@ -703,78 +703,89 @@ document.getElementById('btn-download').addEventListener('click', function () {
     return;
   }
 
-  btn.querySelector('svg') && (btn.querySelector('svg').style.display = 'none');
-  btn.dataset.origText = btn.childNodes[btn.childNodes.length - 1].textContent;
+  var svg = btn.querySelector('svg');
+  if (svg) svg.style.display = 'none';
   btn.childNodes[btn.childNodes.length - 1].textContent = ' جاري التحميل...';
   btn.disabled = true;
 
-  var img = new Image();
-  img.onload = function () {
-    var W = img.naturalWidth;
-    var H = img.naturalHeight;
-
-    var canvas = document.createElement('canvas');
-    canvas.width  = W;
-    canvas.height = H;
-    var ctx = canvas.getContext('2d');
-
-    /* Draw the full card image */
-    ctx.drawImage(img, 0, 0, W, H);
-
-    /* Wait for fonts then draw name */
-    var render = function () {
-      /* Semi-transparent backing strip (subtle) */
-      var nameX    = W * (NAME_X / 100);
-      var nameY    = H * (NAME_Y / 100);
-      var fontSize = Math.round(W * 0.075);  /* ~7.5% of width */
-
-      ctx.save();
-      ctx.textAlign    = NAME_X === 50 ? 'center' : (NAME_X < 50 ? 'right' : 'left');
-      ctx.textBaseline = 'middle';
-      ctx.direction    = 'rtl';
-      ctx.font         = 'bold ' + fontSize + 'px Cairo, sans-serif';
-
-      /* Shadow for legibility */
-      ctx.shadowColor   = 'rgba(0,0,0,0.45)';
-      ctx.shadowBlur    = 18;
-      ctx.shadowOffsetY = 3;
-
-      ctx.fillStyle = '#ffffff';
-      ctx.fillText(name, nameX, nameY);
-      ctx.restore();
-
-      /* Trigger download */
-      var link = document.createElement('a');
-      link.download = 'تهنئة_عيد_الفطر_' + name.replace(/\s+/g, '_') + '.png';
-      link.href = canvas.toDataURL('image/png', 1.0);
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      /* Reset button */
-      btn.disabled = false;
-      if (btn.querySelector('svg')) btn.querySelector('svg').style.display = '';
-      btn.childNodes[btn.childNodes.length - 1].textContent = ' تحميل البطاقة';
-    };
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(render);
-    } else {
-      render();
-    }
-  };
-
-  img.onerror = function () {
+  function resetBtn() {
     btn.disabled = false;
-    btn.childNodes[btn.childNodes.length - 1].textContent = ' حدث خطأ — حاول مرة أخرى';
-    setTimeout(function () {
-      if (btn.querySelector('svg')) btn.querySelector('svg').style.display = '';
-      btn.childNodes[btn.childNodes.length - 1].textContent = ' تحميل البطاقة';
-    }, 2500);
-  };
+    if (svg) svg.style.display = '';
+    btn.childNodes[btn.childNodes.length - 1].textContent = ' تحميل البطاقة';
+  }
 
-  img.src = 'modon-fitr.png';
+  function drawAndSave(blobUrl) {
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var W = img.naturalWidth;
+        var H = img.naturalHeight;
+        var canvas = document.createElement('canvas');
+        canvas.width  = W;
+        canvas.height = H;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, W, H);
+
+        var nameX    = W * (NAME_X / 100);
+        var nameY    = H * (NAME_Y / 100);
+        var fontSize = Math.round(W * 0.075);
+
+        ctx.save();
+        ctx.textAlign    = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.direction    = 'rtl';
+        ctx.font         = 'bold ' + fontSize + 'px Cairo, sans-serif';
+        ctx.shadowColor   = 'rgba(0,0,0,0.45)';
+        ctx.shadowBlur    = 18;
+        ctx.shadowOffsetY = 3;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(name, nameX, nameY);
+        ctx.restore();
+
+        canvas.toBlob(function (blob) {
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          var dlUrl = URL.createObjectURL(blob);
+          var link  = document.createElement('a');
+          link.download = 'تهنئة_عيد_الفطر_' + name.replace(/\s+/g, '_') + '.png';
+          link.href = dlUrl;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(function () { URL.revokeObjectURL(dlUrl); }, 1000);
+          resetBtn();
+        }, 'image/png');
+
+      } catch (e) {
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        resetBtn();
+        alert('حدث خطأ أثناء إنشاء الصورة');
+      }
+    };
+    img.onerror = function () {
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+      resetBtn();
+      alert('تعذّر تحميل صورة الكارت');
+    };
+    img.src = blobUrl || 'modon-fitr.png';
+  }
+
+  /* Load image via fetch → blob URL to avoid canvas taint */
+  if (window.fetch) {
+    fetch('modon-fitr.png')
+      .then(function (r) {
+        if (!r.ok) throw new Error('fetch failed');
+        return r.blob();
+      })
+      .then(function (blob) {
+        drawAndSave(URL.createObjectURL(blob));
+      })
+      .catch(function () {
+        drawAndSave(null); /* fallback to direct src */
+      });
+  } else {
+    drawAndSave(null);
+  }
 });
 </script>
 </body>
