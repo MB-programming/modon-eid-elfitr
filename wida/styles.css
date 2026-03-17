@@ -280,18 +280,39 @@ body {
         max-height: 60vh;
     }
 }
-.eid-ornaments {
-    text-align: center;
-    margin-bottom: 0.8rem;
-    letter-spacing: 6px;
-    opacity: 0.85;
+.eid-deco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 0.9rem;
+    opacity: 0.75;
 }
-.eid-icon {
-    font-size: 1.6rem;
-}
-.eid-stars {
-    font-size: 0.8rem;
+
+/* Crescent SVG */
+.eid-crescent {
+    width: 28px;
+    height: 28px;
     color: var(--wida-gold);
-    vertical-align: middle;
-    letter-spacing: 4px;
+    flex-shrink: 0;
 }
+.eid-crescent--flip {
+    transform: scaleX(-1);
+}
+
+/* Dot row between the two crescents */
+.eid-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.eid-dots span {
+    display: block;
+    border-radius: 50%;
+    background: var(--wida-gold);
+}
+.eid-dots span:nth-child(1),
+.eid-dots span:nth-child(5) { width: 4px; height: 4px; opacity: .5; }
+.eid-dots span:nth-child(2),
+.eid-dots span:nth-child(4) { width: 5px; height: 5px; opacity: .75; }
+.eid-dots span:nth-child(3)  { width: 7px; height: 7px; opacity: 1; }
