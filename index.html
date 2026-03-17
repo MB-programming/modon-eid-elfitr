@@ -398,21 +398,22 @@
       display: block;
     }
 
-    /* Name overlay */
+    /* Name overlay — mirrors canvas: 7.5% of card width, centered */
     .card-name-overlay {
       position: absolute;
-      top: 70%;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
       white-space: nowrap;
+      width: 90%;
     }
     .card-name {
       font-family: var(--font-body);
-      font-size: clamp(20px, 5vw, 28px);
+      /* 7.5% of card width — card is min(420px,86vw), so font = 7.5% of that */
+      font-size: calc(min(420px, 86vw) * 0.075);
       font-weight: 700;
       color: #fff;
-      text-shadow: 0 2px 12px rgba(0,0,0,.35), 0 0 30px rgba(0,0,0,.2);
+      line-height: 1;
     }
 
     /* ─── Download button ─── */
@@ -573,7 +574,7 @@
 /* ── Particles ── */
 (function () {
   var wrap = document.getElementById('particles');
-  for (var i = 0; i < 45; i++) {
+  for (var i = 0; i < 18; i++) {
     var d = document.createElement('div');
     d.className = 'pt';
     d.style.cssText =
@@ -681,13 +682,14 @@ document.getElementById('name-field')
    NAME_Y : 0–100  (% from top)
 ════════════════════════════════════════ */
 var NAME_X = 50;
-var NAME_Y = 85;
+var NAME_Y = 80;
 
-/* Apply to CSS overlay */
+/* Apply to CSS overlay — translateY(-50%) so anchor = vertical middle, matching canvas textBaseline:middle */
 (function () {
   var overlay = document.querySelector('.card-name-overlay');
-  overlay.style.top  = NAME_Y + '%';
-  overlay.style.left = NAME_X + '%';
+  overlay.style.top       = NAME_Y + '%';
+  overlay.style.left      = NAME_X + '%';
+  overlay.style.transform = 'translate(-50%, -50%)';
 })();
 
 
@@ -735,9 +737,6 @@ document.getElementById('btn-download').addEventListener('click', function () {
         ctx.textBaseline = 'middle';
         ctx.direction    = 'rtl';
         ctx.font         = 'bold ' + fontSize + 'px Cairo, sans-serif';
-        ctx.shadowColor   = 'rgba(0,0,0,0.45)';
-        ctx.shadowBlur    = 18;
-        ctx.shadowOffsetY = 3;
         ctx.fillStyle = '#ffffff';
         ctx.fillText(name, nameX, nameY);
         ctx.restore();
