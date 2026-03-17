@@ -25,9 +25,12 @@ body {
     font-family: 'ShaheenFont', -apple-system, sans-serif;
     background: var(--bg-dark);
     color: var(--text-light);
-    min-height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
     line-height: 1.6;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ── Islamic geometric background pattern ── */
@@ -46,7 +49,17 @@ body::before {
 .container {
     position: relative;
     z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.2rem 1.5rem;
+    scrollbar-width: none;
 }
+.container::-webkit-scrollbar { display: none; }
 
 .container {
     max-width: 1200px;
@@ -57,17 +70,17 @@ body::before {
 /* Header */
 .header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .logo {
-    width: 140px;
+    width: 90px;
     height: auto;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.6rem;
 }
 
 .title {
-    font-size: 2.5rem;
+    font-size: 1.6rem;
     background: linear-gradient(135deg, var(--wida-purple-light), var(--wida-gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -82,8 +95,8 @@ body::before {
 /* Steps Container */
 .steps-container {
     background: var(--bg-card);
-    border-radius: 20px;
-    padding: 2.5rem;
+    border-radius: 16px;
+    padding: 1.4rem;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
@@ -103,6 +116,8 @@ body::before {
 
 /* Step 1: Selection */
 .step-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
     font-size: 1.8rem;
     margin-bottom: 2rem;
     text-align: center;
@@ -113,13 +128,13 @@ body::before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .template-option {
     background: #252540;
     border-radius: 16px;
-    padding: 1.5rem;
+    padding: 0.75rem;
     cursor: pointer;
     border: 3px solid transparent;
     transition: all 0.3s ease;
@@ -170,7 +185,7 @@ body::before {
 }
 
 .name-input-group {
-    margin-bottom: 2rem;
+    margin-bottom: 0.8rem;
 }
 
 .name-input-group label {
@@ -182,8 +197,8 @@ body::before {
 
 .name-input {
     width: 100%;
-    padding: 1.2rem;
-    font-size: 1.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 1.2rem;
     font-family: 'ShaheenFont', sans-serif;
     font-weight: 700;
     text-align: center;
@@ -202,8 +217,8 @@ body::before {
 
 /* Buttons */
 .btn {
-    padding: 1.2rem 2.5rem;
-    font-size: 1.2rem;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
     font-weight: 700;
     border: none;
     border-radius: 12px;
@@ -401,7 +416,7 @@ body::before {
     animation: eidFadeUp .9s cubic-bezier(.22,1,.36,1) .55s both;
     background-size: 200% auto;
     animation: eidFadeUp .9s cubic-bezier(.22,1,.36,1) .55s both,
-               goldShimmer 4s linear 1.5s infinite;
+               goldShimmer 10s linear 1.5s infinite;
 }
 .subtitle {
     animation: eidFadeUp .9s cubic-bezier(.22,1,.36,1) .7s both;

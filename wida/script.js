@@ -106,6 +106,10 @@ function goBack() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    /* Scroll to top on load */
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+
     document.getElementById('name-input').addEventListener('keypress', e => {
         if (e.key === 'Enter') generateCard();
     });
