@@ -1,87 +1,32 @@
 /* ═══════════════════════════════════════════════════════════════
-   إعدادات القوالب - Templates Configuration
+   إعدادات القوالب - Eid al-Fitr Templates
    ═══════════════════════════════════════════════════════════════
 
-   للتحكم في موقع وحجم الكلام على التصميمات:
+   للتحكم في موقع وحجم الاسم على كل قالب بشكل مستقل:
 
-   📐 fontScale (حجم الخط):
-      - القيمة من 0.01 إلى 0.2
-      - كل ما زادت القيمة، كل ما الخط بقى أكبر
-      - مثال: 0.12 = خط كبير، 0.05 = خط صغير
-
-   📍 nameX (موقع الكلام أفقياً - يمين/شمال):
-      - القيمة من 0 إلى 1
-      - 0 = أقصى اليمين
-      - 0.5 = المنتصف
-      - 1 = أقصى اليسار
-
-   📍 nameY (موقع الكلام رأسياً - فوق/تحت):
-      - القيمة من 0 إلى 1
-      - 0 = أعلى الصورة
-      - 0.5 = منتصف الصورة
-      - 1 = أسفل الصورة
-
-   🎨 fontColor (لون الخط):
-      - استخدم كود الألوان مثل: '#FFFFFF' (أبيض)، '#D4AF37' (ذهبي)
-
-   🌫️ shadowColor & shadowBlur (ظل الخط):
-      - shadowColor: لون الظل مثل 'rgba(0, 0, 0, 0.8)' (أسود شفاف)
-      - shadowBlur: مدى انتشار الظل (كل ما زاد، كل ما الظل بقى أوسع)
+   📐 fontScale  : حجم الخط نسبة من ارتفاع الصورة (0.01 – 0.20)
+   📍 nameX      : الموضع الأفقي  0 = يمين ، 0.5 = وسط ، 1 = يسار
+   📍 nameY      : الموضع الرأسي  0 = أعلى ، 0.5 = وسط ، 1 = أسفل
+   🎨 fontColor  : لون الخط مثل '#FFFFFF' أو '#D4AF37'
 
    ═══════════════════════════════════════════════════════════════ */
 
 const TEMPLATES = {
     'wida-one': {
         imgId: 'img-wida-one',
-        // حجم الخط: 0.035 = صغير
-        fontScale: 0.035,
-        // موقع الكلام أفقياً: 0.5 = في المنتصف
+        fontScale: 0.055,
         nameX: 0.5,
-        // موقع الكلام رأسياً: 0.84 = تحت خالص (قريب من آخر الصورة)
-        nameY: 0.84,
-        // لون الخط: أبيض
+        nameY: 0.80,
         fontColor: '#FFFFFF',
-        // لون الظل: أسود شفاف
-        shadowColor: 'rgba(0, 0, 0, 0.8)',
-        // مدى انتشار الظل: 20 = ظل واضح
-        shadowBlur: 20
     },
     'wida-two': {
         imgId: 'img-wida-two',
-        // حجم الخط: 0.035 = صغير
-        fontScale: 0.035,
-        // موقع الكلام أفقياً: 0.5 = في المنتصف
+        fontScale: 0.055,
         nameX: 0.5,
-        // موقع الكلام رأسياً: 0.80 = في النص السفلي تقريباً
         nameY: 0.80,
-        // لون الخط: أبيض
         fontColor: '#FFFFFF',
-        // لون الظل: أسود شفاف
-        shadowColor: 'rgba(0, 0, 0, 0.8)',
-        // مدى انتشار الظل: 25 = ظل أوضح شوية
-        shadowBlur: 25
     }
 };
-
-/* ═══════════════════════════════════════════════════════════════
-   أمثلة للتحكم في الموقع:
-
-   ✅ لو عايز الكلام يروح فوق:
-      nameY: 0.2  (في الربع الأول من الصورة)
-
-   ✅ لو عايز الكلام يروح يمين:
-      nameX: 0.7  (جهة اليمين)
-
-   ✅ لو عايز الكلام يروح شمال:
-      nameX: 0.3  (جهة اليسار)
-
-   ✅ لو عايز الخط أكبر:
-      fontScale: 0.15  (زود الرقم)
-
-   ✅ لو عايز الخط أصغر:
-      fontScale: 0.06  (قلل الرقم)
-
-   ═══════════════════════════════════════════════════════════════ */
 
 let selectedTemplate = 'wida-one';
 
@@ -111,20 +56,19 @@ function generateCard() {
     const canvas = document.getElementById('result-canvas');
     const ctx = canvas.getContext('2d');
 
-    // Wait for image to load
     const render = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
 
         ctx.drawImage(img, 0, 0);
 
         const fontSize = Math.floor(canvas.height * config.fontScale);
-        ctx.font = `700 ${fontSize}px ShaheenFont, sans-serif`;
+        ctx.font = `700 ${fontSize}px ShaheenFont, Cairo, sans-serif`;
         ctx.fillStyle = config.fontColor;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
-        // NO SHADOW - شيلنا الظل
+        /* No shadow */
         ctx.shadowColor = 'transparent';
         ctx.shadowBlur = 0;
         ctx.shadowOffsetX = 0;
@@ -132,7 +76,6 @@ function generateCard() {
 
         ctx.fillText(name, canvas.width * config.nameX, canvas.height * config.nameY);
 
-        // Show step 2
         document.getElementById('step1').classList.remove('active');
         document.getElementById('step2').classList.add('active');
     };
@@ -151,7 +94,7 @@ function downloadCard() {
     canvas.toBlob(blob => {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `wida-card-${selectedTemplate}-${name || 'card'}.jpg`;
+        link.download = `تهنئة_عيد_الفطر_${name || 'card'}.jpg`;
         link.click();
         URL.revokeObjectURL(link.href);
     }, 'image/jpeg', 0.95);
@@ -162,7 +105,6 @@ function goBack() {
     document.getElementById('step1').classList.add('active');
 }
 
-// Enter key to generate
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('name-input').addEventListener('keypress', e => {
         if (e.key === 'Enter') generateCard();
