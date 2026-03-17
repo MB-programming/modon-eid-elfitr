@@ -12,13 +12,13 @@
 }
 
 :root {
-    --wida-purple: #00897B;
-    --wida-purple-light: #00BFA5;
+    --wida-purple: #6E4FDC;
+    --wida-purple-light: #9B7FED;
     --wida-gold: #D4AF37;
-    --bg-dark: #0A1F1C;
-    --bg-card: #0F2E29;
+    --bg-dark: #0F0F23;
+    --bg-card: #1A1A2E;
     --text-light: #E8E8F5;
-    --text-muted: #A0C4BE;
+    --text-muted: #A0A0C0;
 }
 
 body {
@@ -98,7 +98,7 @@ body {
 }
 
 .template-option {
-    background: #133D35;
+    background: #252540;
     border-radius: 16px;
     padding: 1.5rem;
     cursor: pointer;
@@ -131,7 +131,7 @@ body {
 .template-preview {
     width: 100%;
     height: 200px;
-    background: #0D2B25;
+    background: #1a1a2e;
     border-radius: 12px;
     margin-bottom: 1rem;
     overflow: hidden;
@@ -168,7 +168,7 @@ body {
     font-family: 'ShaheenFont', sans-serif;
     font-weight: 700;
     text-align: center;
-    background: #133D35;
+    background: #252540;
     border: 3px solid #3a3a5c;
     border-radius: 12px;
     color: var(--text-light);
@@ -214,12 +214,12 @@ body {
 }
 
 .btn-secondary {
-    background: #1B4D44;
+    background: #3a3a5c;
     color: var(--text-light);
 }
 
 .btn-secondary:hover {
-    background: #235E53;
+    background: #4a4a6c;
 }
 
 .buttons-row {
@@ -233,7 +233,7 @@ body {
 }
 
 .canvas-wrapper {
-    background: #0D2B25;
+    background: #1a1a2e;
     border-radius: 16px;
     padding: 1rem;
     margin-bottom: 2rem;
@@ -280,162 +280,18 @@ body {
         max-height: 60vh;
     }
 }
-/* Hero Section */
-.hero-section {
-    position: relative;
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-bottom: 4rem;
-}
-
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.15), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.1), transparent 50%);
-    z-index: 0;
-}
-
-.hero-background::before {
-    content: '';
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background-image: url('assets/wida-ramadan-2.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    top: 10%;
-    left: 5%;
-    opacity: 0.15;
-    animation: float 20s ease-in-out infinite;
-}
-
-.hero-background::after {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background-image: url('assets/wida-ramadan-2.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    bottom: 10%;
-    right: 5%;
-    opacity: 0.1;
-    animation: float 25s ease-in-out infinite reverse;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
+.eid-ornaments {
     text-align: center;
-    animation: fadeInUp 1.5s ease-out;
+    margin-bottom: 0.8rem;
+    letter-spacing: 6px;
+    opacity: 0.85;
 }
-
-.hero-logo {
-    max-width: 600px;
-    width: 90%;
-    height: auto;
-    filter: drop-shadow(0 20px 40px rgba(139, 92, 246, 0.4));
-    animation: pulse 3s ease-in-out infinite;
+.eid-icon {
+    font-size: 1.6rem;
 }
-
-.hero-subtitle {
-    font-size: 1.8rem;
+.eid-stars {
+    font-size: 0.8rem;
     color: var(--wida-gold);
-    margin-top: 2rem;
-    text-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
-    animation: fadeIn 2s ease-out 0.5s both;
-}
-
-/* Animations */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-30px) rotate(5deg);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-}
-
-/* Background Pattern for entire page */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        url('assets/wida-ramadan-2.png'),
-        url('assets/wida-ramadan-2.png'),
-        url('assets/wida-ramadan-2.png'),
-        url('assets/wida-ramadan-2.png');
-    background-size: 150px, 120px, 180px, 140px;
-    background-position: 
-        10% 15%,
-        90% 20%,
-        15% 85%,
-        85% 80%;
-    background-repeat: no-repeat;
-    opacity: 0.05;
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-section {
-        min-height: 60vh;
-    }
-    
-    .hero-logo {
-        max-width: 400px;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.3rem;
-    }
-    
-    .hero-background::before,
-    .hero-background::after {
-        width: 200px;
-        height: 200px;
-    }
+    vertical-align: middle;
+    letter-spacing: 4px;
 }
