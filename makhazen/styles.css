@@ -289,9 +289,28 @@ body {
     max-height: 90vh;
     display: flex;
     flex-direction: column;
+    position: relative;
     box-shadow: 0 8px 40px rgba(0,0,0,0.35);
     animation: slideUp 0.3s cubic-bezier(.22,1,.36,1) both;
 }
+.modal-close {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: rgba(0,0,0,0.08);
+    border-radius: 50%;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition);
+}
+.modal-close:hover { background: rgba(0,0,0,0.18); }
 .result-modal-inner .result-canvas {
     flex: 1 1 auto;
     min-height: 0;
