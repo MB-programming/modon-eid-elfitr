@@ -13,11 +13,12 @@
 
 const CARD_CONFIG = {
     imgId:      'card-img',
-    fontScale:  0.065,          /* حجم الخط أكبر قليلاً للبولد */
+    fontScale:  0.065,
+    fontSizeOffset: -4,         /* تصغير الخط بـ 4px */
     nameX:      0.5,
-    nameY:      0.30,           /* 30% من الأعلى */
+    nameY:      0.63,
     fontColor:  '#111111',
-    strokeWidth: 4,             /* سُمك البولد (0 = بدون stroke) */
+    strokeWidth: 0,
 };
 
 /* ── Generate card ── */
@@ -42,8 +43,8 @@ function generateCard() {
 
         ctx.drawImage(img, 0, 0);
 
-        const fontSize = Math.floor(canvas.height * CARD_CONFIG.fontScale);
-        ctx.font         = `900 ${fontSize}px PNUFont, Cairo, sans-serif`;
+        const fontSize = Math.floor(canvas.height * CARD_CONFIG.fontScale) + CARD_CONFIG.fontSizeOffset;
+        ctx.font         = `700 ${fontSize}px PNUFont, Cairo, sans-serif`;
         ctx.textAlign    = 'center';
         ctx.textBaseline = 'middle';
 
@@ -61,8 +62,7 @@ function generateCard() {
         ctx.fillStyle = CARD_CONFIG.fontColor;
         ctx.fillText(name, x, y);
 
-        document.getElementById('step1').style.display = 'none';
-        document.getElementById('step2').style.display = 'block';
+        document.getElementById('result-modal').classList.add('open');
     };
 
     if (img.complete && img.naturalWidth > 0) {
@@ -89,8 +89,7 @@ function downloadCard() {
 
 /* ── Back ── */
 function goBack() {
-    document.getElementById('step2').style.display = 'none';
-    document.getElementById('step1').style.display = 'block';
+    document.getElementById('result-modal').classList.remove('open');
 }
 
 /* ── Init ── */
