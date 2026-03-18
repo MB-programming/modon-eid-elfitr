@@ -196,7 +196,7 @@ body {
     display: none;
 }
 .steps-container#step1 { display: block; }
-.steps-container#step2 { display: none; }
+/* step2 removed – result now shown in modal */
 
 @keyframes cardIn {
     from { opacity: 0; transform: translateY(24px) scale(0.97); }
@@ -260,10 +260,45 @@ body {
     opacity: 0.85;
 }
 
-/* ── Result canvas (step 2) ── */
+/* ── Result modal ── */
+.result-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0,0,0,0.65);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    backdrop-filter: blur(4px);
+}
+.result-modal.open {
+    display: flex;
+    animation: fadeIn 0.25s ease both;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.result-modal-inner {
+    background: var(--mk-white);
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    animation: slideUp 0.3s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Result canvas ── */
 .result-canvas {
     width: 100%;
-    max-width: 100%;
     height: auto;
     display: block;
     border-radius: 12px;
@@ -333,7 +368,7 @@ body {
 }
 
 /* بطاقة النتيجة تدخل بتكبير خفيف */
-#step2 .result-canvas {
+.result-modal.open .result-canvas {
     animation: canvasReveal 0.55s cubic-bezier(.22,1,.36,1) both;
 }
 @keyframes canvasReveal {

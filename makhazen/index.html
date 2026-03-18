@@ -61,20 +61,16 @@
 
         </div>
 
-        <!-- ══ STEP 2 : النتيجة ══ -->
-        <div class="steps-container" id="step2">
-
-            <div class="step active">
+        <!-- ══ STEP 2 : النتيجة (modal) ══ -->
+        <div id="result-modal" class="result-modal" role="dialog" aria-modal="true" aria-label="بطاقتك جاهزة">
+            <div class="result-modal-inner">
                 <h2 class="step-title">بطاقتك جاهزة</h2>
-
                 <canvas id="result-canvas" class="result-canvas"></canvas>
-
                 <div class="action-buttons">
                     <button class="btn btn-primary" onclick="downloadCard()">تحميل البطاقة</button>
                     <button class="btn btn-secondary" onclick="goBack()">رجوع</button>
                 </div>
             </div>
-
         </div>
 
     </div>
