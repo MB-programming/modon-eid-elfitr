@@ -12,11 +12,12 @@
    ═══════════════════════════════════════════════════════════════ */
 
 const CARD_CONFIG = {
-    imgId:     'card-img',
-    fontScale: 0.055,
-    nameX:     0.5,
-    nameY:     0.78,
-    fontColor: '#111111',
+    imgId:      'card-img',
+    fontScale:  0.065,          /* حجم الخط أكبر قليلاً للبولد */
+    nameX:      0.5,
+    nameY:      0.30,           /* 30% من الأعلى */
+    fontColor:  '#111111',
+    strokeWidth: 4,             /* سُمك البولد (0 = بدون stroke) */
 };
 
 /* ── Generate card ── */
@@ -42,21 +43,23 @@ function generateCard() {
         ctx.drawImage(img, 0, 0);
 
         const fontSize = Math.floor(canvas.height * CARD_CONFIG.fontScale);
-        ctx.font         = `700 ${fontSize}px PNUFont, Cairo, sans-serif`;
-        ctx.fillStyle    = CARD_CONFIG.fontColor;
+        ctx.font         = `900 ${fontSize}px PNUFont, Cairo, sans-serif`;
         ctx.textAlign    = 'center';
         ctx.textBaseline = 'middle';
 
-        ctx.shadowColor   = 'transparent';
-        ctx.shadowBlur    = 0;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
+        const x = canvas.width  * CARD_CONFIG.nameX;
+        const y = canvas.height * CARD_CONFIG.nameY;
 
-        ctx.fillText(
-            name,
-            canvas.width  * CARD_CONFIG.nameX,
-            canvas.height * CARD_CONFIG.nameY
-        );
+        /* stroke أولاً لمحاكاة البولد الثقيل */
+        if (CARD_CONFIG.strokeWidth > 0) {
+            ctx.lineWidth   = CARD_CONFIG.strokeWidth;
+            ctx.strokeStyle = CARD_CONFIG.fontColor;
+            ctx.lineJoin    = 'round';
+            ctx.strokeText(name, x, y);
+        }
+
+        ctx.fillStyle = CARD_CONFIG.fontColor;
+        ctx.fillText(name, x, y);
 
         document.getElementById('step1').style.display = 'none';
         document.getElementById('step2').style.display = 'block';

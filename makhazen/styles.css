@@ -149,6 +149,11 @@ body {
     height: auto;
     margin-bottom: 0.5rem;
     filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+    animation: logoFloat 4s ease-in-out infinite;
+}
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
 }
 .title {
     font-size: 1.55rem;
@@ -189,7 +194,6 @@ body {
     padding: 1.3rem 1.4rem;
     box-shadow: 0 8px 32px var(--mk-shadow);
     display: none;
-    animation: cardIn 0.6s cubic-bezier(.22,1,.36,1) both;
 }
 .steps-container#step1 { display: block; }
 .steps-container#step2 { display: none; }
@@ -282,6 +286,7 @@ body {
 .btn-primary {
     width: 100%;
     background: var(--mk-yellow);
+    animation: btnGlow 3s ease-in-out infinite;
     color: var(--mk-black);
     box-shadow: 0 4px 14px rgba(212,169,0,0.4);
 }
@@ -312,10 +317,36 @@ body {
     gap: 0;
 }
 
-/* ══ Keyframe – slide from top ══ */
+/* ══ Keyframes ══ */
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-20px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+/* زر ينبض بضوء ذهبي خفيف */
+@keyframes btnGlow {
+    0%, 100% { box-shadow: 0 4px 14px rgba(212,169,0,0.4); }
+    50%       { box-shadow: 0 6px 24px rgba(212,169,0,0.75), 0 0 0 4px rgba(245,200,0,0.2); }
+}
+
+/* بطاقة النتيجة تدخل بتكبير خفيف */
+#step2 .result-canvas {
+    animation: canvasReveal 0.55s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes canvasReveal {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* border الكارت الرئيسي يلمع */
+.steps-container {
+    outline: 2px solid transparent;
+    animation: cardIn 0.6s cubic-bezier(.22,1,.36,1) both,
+               borderPulse 4s ease-in-out 1s infinite;
+}
+@keyframes borderPulse {
+    0%, 100% { outline-color: transparent; }
+    50%       { outline-color: rgba(212,169,0,0.35); }
 }
 
 /* ══ Responsive tweaks ══ */
