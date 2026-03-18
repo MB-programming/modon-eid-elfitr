@@ -2,23 +2,30 @@
    مخازن العناية – بطاقة تهنئة عيد الفطر
    ═══════════════════════════════════════════════════════════════
 
-   للتحكم في موقع وحجم الاسم على البطاقة:
-
-   fontScale  : حجم الخط نسبة من ارتفاع الصورة (0.01 – 0.20)
-   nameX      : الموضع الأفقي  0 = يمين ، 0.5 = وسط ، 1 = يسار
-   nameY      : الموضع الرأسي  0 = أعلى ، 0.5 = وسط ، 1 = أسفل
-   fontColor  : لون الخط
+   ╔══════════════════════════════════════════════════════════╗
+   ║           للتحكم في الاسم على البطاقة                   ║
+   ╠══════════════════════════════════════════════════════════╣
+   ║  fontSize  : حجم الخط بالبيكسيل — غيّر هذا الرقم        ║
+   ║  nameX     : الموضع الأفقي  0=يمين  0.5=وسط  1=يسار     ║
+   ║  nameY     : الموضع الرأسي  0=أعلى  0.5=وسط  1=أسفل     ║
+   ║  nameYoffset : إزاحة رأسية ثابتة بالبيكسيل (+ = أسفل)   ║
+   ║  fontColor : لون الخط                                    ║
+   ╚══════════════════════════════════════════════════════════╝
 
    ═══════════════════════════════════════════════════════════════ */
 
 const CARD_CONFIG = {
-    imgId:      'card-img',
-    fontScale:  0.065,
-    fontSizeOffset: -15,        /* تصغير الخط بـ 15px */
-    nameX:      0.5,
-    nameY:      0.61,
-    fontColor:  '#111111',
-    strokeWidth: 0,
+    imgId:        'card-img',
+
+    /* ══ حجم الخط (بالبيكسيل) – غيّر هذا الرقم فقط ══ */
+    fontSize:     50,
+
+    nameX:        0.5,
+    nameY:        0.61,
+    nameYoffset:  3,          /* إزاحة إضافية للأسفل بالبيكسيل */
+
+    fontColor:    '#111111',
+    strokeWidth:  0,
 };
 
 /* ── Generate card ── */
@@ -52,13 +59,12 @@ function generateCard() {
 
         ctx.drawImage(img, 0, 0);
 
-        const fontSize = Math.floor(canvas.height * CARD_CONFIG.fontScale) + CARD_CONFIG.fontSizeOffset;
-        ctx.font         = `700 ${fontSize}px PNUFont, Cairo, sans-serif`;
+        ctx.font         = `700 ${CARD_CONFIG.fontSize}px PNUFont, Cairo, sans-serif`;
         ctx.textAlign    = 'center';
         ctx.textBaseline = 'middle';
 
         const x = canvas.width  * CARD_CONFIG.nameX;
-        const y = canvas.height * CARD_CONFIG.nameY;
+        const y = canvas.height * CARD_CONFIG.nameY + CARD_CONFIG.nameYoffset;
 
         if (CARD_CONFIG.strokeWidth > 0) {
             ctx.lineWidth   = CARD_CONFIG.strokeWidth;
@@ -78,7 +84,7 @@ function generateCard() {
         render();
     } else {
         img.onload  = render;
-        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة. تأكد من وجود ملف card.jpg'); };
+        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة. تأكد من وجود ملف card.webp'); };
     }
 }
 
