@@ -14,7 +14,7 @@
 const CARD_CONFIG = {
     imgId:      'card-img',
     fontScale:  0.065,
-    fontSizeOffset: -4,         /* تصغير الخط بـ 4px */
+    fontSizeOffset: -7,         /* تصغير الخط بـ 7px */
     nameX:      0.5,
     nameY:      0.63,
     fontColor:  '#111111',
