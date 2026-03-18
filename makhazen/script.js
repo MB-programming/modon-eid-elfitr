@@ -14,7 +14,7 @@
 const CARD_CONFIG = {
     imgId:      'card-img',
     fontScale:  0.065,
-    fontSizeOffset: -7,         /* تصغير الخط بـ 7px */
+    fontSizeOffset: -12,        /* تصغير الخط بـ 12px */
     nameX:      0.5,
     nameY:      0.63,
     fontColor:  '#111111',
@@ -33,9 +33,18 @@ function generateCard() {
         return;
     }
 
+    const btn = document.querySelector('#step1 .btn-primary');
+    btn.disabled    = true;
+    btn.textContent = 'جاري الإنشاء…';
+
     const img    = document.getElementById(CARD_CONFIG.imgId);
     const canvas = document.getElementById('result-canvas');
     const ctx    = canvas.getContext('2d');
+
+    const done = () => {
+        btn.disabled    = false;
+        btn.textContent = 'توليد البطاقة';
+    };
 
     const render = () => {
         canvas.width  = img.naturalWidth;
@@ -51,7 +60,6 @@ function generateCard() {
         const x = canvas.width  * CARD_CONFIG.nameX;
         const y = canvas.height * CARD_CONFIG.nameY;
 
-        /* stroke أولاً لمحاكاة البولد الثقيل */
         if (CARD_CONFIG.strokeWidth > 0) {
             ctx.lineWidth   = CARD_CONFIG.strokeWidth;
             ctx.strokeStyle = CARD_CONFIG.fontColor;
@@ -62,6 +70,7 @@ function generateCard() {
         ctx.fillStyle = CARD_CONFIG.fontColor;
         ctx.fillText(name, x, y);
 
+        done();
         document.getElementById('result-modal').classList.add('open');
     };
 
@@ -69,7 +78,7 @@ function generateCard() {
         render();
     } else {
         img.onload  = render;
-        img.onerror = () => alert('تعذّر تحميل صورة البطاقة. تأكد من وجود ملف card.jpg');
+        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة. تأكد من وجود ملف card.jpg'); };
     }
 }
 
