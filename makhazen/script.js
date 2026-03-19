@@ -2,30 +2,20 @@
    مخازن العناية – بطاقة تهنئة عيد الفطر
    ═══════════════════════════════════════════════════════════════
 
-   ╔══════════════════════════════════════════════════════════╗
-   ║           للتحكم في الاسم على البطاقة                   ║
-   ╠══════════════════════════════════════════════════════════╣
-   ║  fontSize  : حجم الخط بالبيكسيل — غيّر هذا الرقم        ║
-   ║  nameX     : الموضع الأفقي  0=يمين  0.5=وسط  1=يسار     ║
-   ║  nameY     : الموضع الرأسي  0=أعلى  0.5=وسط  1=أسفل     ║
-   ║  nameYoffset : إزاحة رأسية ثابتة بالبيكسيل (+ = أسفل)   ║
-   ║  fontColor : لون الخط                                    ║
-   ╚══════════════════════════════════════════════════════════╝
+   📐 fontScale : حجم الخط نسبة من ارتفاع الصورة (0.01 – 0.20)
+   📍 nameX     : الموضع الأفقي  0 = يمين ، 0.5 = وسط ، 1 = يسار
+   📍 nameY     : الموضع الرأسي  0 = أعلى ، 0.5 = وسط ، 1 = أسفل
+   🎨 fontColor : لون الخط مثل '#111111' أو '#FFFFFF'
 
    ═══════════════════════════════════════════════════════════════ */
 
 const CARD_CONFIG = {
-    imgId:        'card-img',
-
-    /* ══ حجم الخط (بالبيكسيل) – غيّر هذا الرقم فقط ══ */
-    fontSize:     50,
-
-    nameX:        0.5,
-    nameY:        0.61,
-    nameYoffset:  3,          /* إزاحة إضافية للأسفل بالبيكسيل */
-
-    fontColor:    '#111111',
-    strokeWidth:  0,
+    imgId:      'card-img',
+    fontScale:  0.055,        /* حجم الخط – نسبة من ارتفاع الصورة */
+    nameX:      0.5,
+    nameY:      0.61,
+    fontColor:  '#111111',
+    strokeWidth: 0,
 };
 
 /* ── Generate card ── */
@@ -61,22 +51,23 @@ function generateCard() {
 
         ctx.drawImage(img, 0, 0);
 
-        const fontSpec = `700 ${CARD_CONFIG.fontSize}px PNUFont, Cairo, sans-serif`;
+        const baseFontSize = Math.floor(canvas.height * CARD_CONFIG.fontScale);
+        const fontSpec     = `700 ${baseFontSize}px PNUFont, Cairo, sans-serif`;
 
         const drawText = () => {
             /* auto-shrink font to fit 70% of card width */
             const maxW = canvas.width * 0.70;
-            let fs = CARD_CONFIG.fontSize;
+            let fs = baseFontSize;
             ctx.font         = `700 ${fs}px PNUFont, Cairo, sans-serif`;
             ctx.textAlign    = 'center';
             ctx.textBaseline = 'middle';
-            while (fs > 18 && ctx.measureText(name).width > maxW) {
+            while (fs > 12 && ctx.measureText(name).width > maxW) {
                 fs -= 2;
                 ctx.font = `700 ${fs}px PNUFont, Cairo, sans-serif`;
             }
 
             const x = canvas.width  * CARD_CONFIG.nameX;
-            const y = canvas.height * CARD_CONFIG.nameY + CARD_CONFIG.nameYoffset;
+            const y = canvas.height * CARD_CONFIG.nameY;
 
             if (CARD_CONFIG.strokeWidth > 0) {
                 ctx.lineWidth   = CARD_CONFIG.strokeWidth;
