@@ -54,7 +54,10 @@
                     >
                 </div>
 
-<button class="btn btn-primary" onclick="generateCard()">توليد البطاقة</button>
+                <div class="cache-row">
+                    <button class="btn btn-primary" onclick="generateCard()">توليد البطاقة</button>
+                    <button class="btn btn-secondary" onclick="clearImageCache()">تحديث الصورة</button>
+                </div>
             </div>
 
         </div>
@@ -77,6 +80,6 @@
     <!-- Hidden card image used by canvas -->
     <img id="card-img" src="cardeid.webp" alt="" crossorigin="anonymous" style="display:none">
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
 </body>
 </html>

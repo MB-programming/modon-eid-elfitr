@@ -357,6 +357,14 @@ body {
     gap: 0;
 }
 
+.cache-row {
+    display: flex;
+    gap: 0.6rem;
+    width: 100%;
+}
+.cache-row .btn-primary  { flex: 1; width: auto; }
+.cache-row .btn-secondary { flex: 1; width: auto; margin-top: 0; }
+
 /* ══ Keyframes ══ */
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-20px); }
