@@ -82,7 +82,7 @@ function generateCard() {
 
     const loadFresh = () => {
         img.onload  = render;
-        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (card.jpg). تأكد من وجود الملف.'); };
+        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (cardeid.webp). تأكد من وجود الملف.'); };
         img.src = img.src.split('?')[0] + '?t=' + Date.now(); /* force reload */
     };
 
@@ -93,7 +93,7 @@ function generateCard() {
         loadFresh();
     } else {
         img.onload  = render;
-        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (card.jpg). تأكد من وجود الملف.'); };
+        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (cardeid.webp). تأكد من وجود الملف.'); };
     }
 }
 
