@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مخازن العناية - بطاقة تهنئة عيد الفطر</title>
+    <link rel="preload" href="ArbFONTS-PNU-Light.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="logob.webp" as="image">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <!-- Decorative patterns background -->
     <div class="bg-pattern" aria-hidden="true">
-        <img src="pattern-1.webp" class="pat pat-1" alt="">
-        <img src="pattern-2.webp" class="pat pat-2" alt="">
-        <img src="pattern-3.webp" class="pat pat-3" alt="">
-        <img src="pattern-4.webp" class="pat pat-4" alt="">
-        <img src="pattern-5.webp" class="pat pat-5" alt="">
-        <img src="pattern-6.webp" class="pat pat-6" alt="">
+        <img src="pattern-1.webp" class="pat pat-1" alt="" loading="lazy">
+        <img src="pattern-2.webp" class="pat pat-2" alt="" loading="lazy">
+        <img src="pattern-3.webp" class="pat pat-3" alt="" loading="lazy">
+        <img src="pattern-4.webp" class="pat pat-4" alt="" loading="lazy">
+        <img src="pattern-5.webp" class="pat pat-5" alt="" loading="lazy">
+        <img src="pattern-6.webp" class="pat pat-6" alt="" loading="lazy">
     </div>
 
     <!-- Decorative crescents / stars (CSS only, no emoji) -->
@@ -73,7 +75,7 @@
     </div>
 
     <!-- Hidden card image used by canvas -->
-    <img id="card-img" src="card.jpg" alt="" style="display:none">
+    <img id="card-img" src="card.webp" alt="" style="display:none">
 
     <script src="script.js"></script>
 </body>
