@@ -80,11 +80,20 @@ function generateCard() {
         document.getElementById('result-modal').classList.add('open');
     };
 
+    const loadFresh = () => {
+        img.onload  = render;
+        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (card.jpg). تأكد من وجود الملف.'); };
+        img.src = img.src.split('?')[0] + '?t=' + Date.now(); /* force reload */
+    };
+
     if (img.complete && img.naturalWidth > 0) {
         render();
+    } else if (img.complete && img.naturalWidth === 0) {
+        /* image already failed to load — retry */
+        loadFresh();
     } else {
         img.onload  = render;
-        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة. تأكد من وجود ملف card.webp'); };
+        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (card.jpg). تأكد من وجود الملف.'); };
     }
 }
 
@@ -93,13 +102,21 @@ function downloadCard() {
     const canvas = document.getElementById('result-canvas');
     const name   = document.getElementById('name-input').value.trim();
 
-    canvas.toBlob(blob => {
-        const link    = document.createElement('a');
-        link.href     = URL.createObjectURL(blob);
-        link.download = `تهنئة_عيد_الفطر_${name || 'مخازن'}.jpg`;
-        link.click();
-        URL.revokeObjectURL(link.href);
-    }, 'image/jpeg', 0.95);
+    try {
+        canvas.toBlob(blob => {
+            if (!blob) { alert('تعذّر تصدير البطاقة، حاول مرة أخرى.'); return; }
+            const link    = document.createElement('a');
+            link.href     = URL.createObjectURL(blob);
+            link.download = `تهنئة_عيد_الفطر_${name || 'مخازن'}.jpg`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }, 'image/jpeg', 0.95);
+    } catch (e) {
+        /* canvas tainted – fallback: open image in new tab */
+        const url = canvas.toDataURL('image/jpeg', 0.95);
+        const win = window.open();
+        win.document.write(`<img src="${url}" style="max-width:100%">`);
+    }
 }
 
 /* ── Back ── */
