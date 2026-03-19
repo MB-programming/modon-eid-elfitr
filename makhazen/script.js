@@ -57,34 +57,44 @@ function generateCard() {
         canvas.width  = img.naturalWidth;
         canvas.height = img.naturalHeight;
 
+        if (!canvas.width) { done(); return; }
+
         ctx.drawImage(img, 0, 0);
 
-        /* auto-shrink font to fit 70% of card width */
-        const maxW = canvas.width * 0.70;
-        let fs = CARD_CONFIG.fontSize;
-        ctx.font         = `700 ${fs}px PNUFont, Cairo, sans-serif`;
-        ctx.textAlign    = 'center';
-        ctx.textBaseline = 'middle';
-        while (fs > 18 && ctx.measureText(name).width > maxW) {
-            fs -= 2;
-            ctx.font = `700 ${fs}px PNUFont, Cairo, sans-serif`;
-        }
+        const fontSpec = `700 ${CARD_CONFIG.fontSize}px PNUFont, Cairo, sans-serif`;
 
-        const x = canvas.width  * CARD_CONFIG.nameX;
-        const y = canvas.height * CARD_CONFIG.nameY + CARD_CONFIG.nameYoffset;
+        const drawText = () => {
+            /* auto-shrink font to fit 70% of card width */
+            const maxW = canvas.width * 0.70;
+            let fs = CARD_CONFIG.fontSize;
+            ctx.font         = `700 ${fs}px PNUFont, Cairo, sans-serif`;
+            ctx.textAlign    = 'center';
+            ctx.textBaseline = 'middle';
+            while (fs > 18 && ctx.measureText(name).width > maxW) {
+                fs -= 2;
+                ctx.font = `700 ${fs}px PNUFont, Cairo, sans-serif`;
+            }
 
-        if (CARD_CONFIG.strokeWidth > 0) {
-            ctx.lineWidth   = CARD_CONFIG.strokeWidth;
-            ctx.strokeStyle = CARD_CONFIG.fontColor;
-            ctx.lineJoin    = 'round';
-            ctx.strokeText(name, x, y);
-        }
+            const x = canvas.width  * CARD_CONFIG.nameX;
+            const y = canvas.height * CARD_CONFIG.nameY + CARD_CONFIG.nameYoffset;
 
-        ctx.fillStyle = CARD_CONFIG.fontColor;
-        ctx.fillText(name, x, y);
+            if (CARD_CONFIG.strokeWidth > 0) {
+                ctx.lineWidth   = CARD_CONFIG.strokeWidth;
+                ctx.strokeStyle = CARD_CONFIG.fontColor;
+                ctx.lineJoin    = 'round';
+                ctx.strokeText(name, x, y);
+            }
 
-        done();
-        document.getElementById('result-modal').classList.add('open');
+            ctx.fillStyle = CARD_CONFIG.fontColor;
+            ctx.fillText(name, x, y);
+
+            done();
+            document.getElementById('result-modal').classList.add('open');
+        };
+
+        /* wait for PNUFont to load so measureText is accurate */
+        (document.fonts ? document.fonts.load(fontSpec) : Promise.resolve())
+            .then(drawText).catch(drawText);
     };
 
     const loadFresh = () => {
