@@ -10,76 +10,91 @@
 </head>
 <body>
 
-    <!-- Decorative patterns background -->
-    <div class="bg-pattern" aria-hidden="true">
-        <img src="pattern-1.webp" class="pat pat-1" alt="" loading="lazy">
-        <img src="pattern-2.webp" class="pat pat-2" alt="" loading="lazy">
-        <img src="pattern-3.webp" class="pat pat-3" alt="" loading="lazy">
-        <img src="pattern-4.webp" class="pat pat-4" alt="" loading="lazy">
-        <img src="pattern-5.webp" class="pat pat-5" alt="" loading="lazy">
-        <img src="pattern-6.webp" class="pat pat-6" alt="" loading="lazy">
-    </div>
-
-    <!-- Decorative crescents / stars (CSS only, no emoji) -->
-    <div class="deco deco-crescent deco-c1" aria-hidden="true"></div>
-    <div class="deco deco-crescent deco-c2" aria-hidden="true"></div>
-    <div class="deco deco-star deco-s1" aria-hidden="true"></div>
-    <div class="deco deco-star deco-s2" aria-hidden="true"></div>
-    <div class="deco deco-star deco-s3" aria-hidden="true"></div>
-
     <div class="container">
 
         <!-- ══ HEADER ══ -->
-        <header class="header">
+        <div class="header">
             <img src="logob.webp" class="logo" alt="مخازن العناية">
-            <h1 class="title">بطاقة تهنئة عيد الفطر</h1>
-            <p class="subtitle">اكتب اسمك وحمّل بطاقتك الخاصة</p>
-        </header>
 
-        <!-- ══ STEP 1 : اختر الاسم ══ -->
-        <div class="steps-container" id="step1">
+            <div class="eid-deco" aria-hidden="true">
+                <svg class="eid-crescent" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M38 10 A20 20 0 1 0 38 50 A14 14 0 1 1 38 10Z" fill="currentColor"/>
+                    <polygon points="47,18 48.5,23 53.5,23 49.5,26 51,31 47,28 43,31 44.5,26 40.5,23 45.5,23" fill="currentColor"/>
+                </svg>
+                <span class="eid-dots">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span>
+                </span>
+                <svg class="eid-crescent eid-crescent--flip" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M38 10 A20 20 0 1 0 38 50 A14 14 0 1 1 38 10Z" fill="currentColor"/>
+                    <polygon points="47,18 48.5,23 53.5,23 49.5,26 51,31 47,28 43,31 44.5,26 40.5,23 45.5,23" fill="currentColor"/>
+                </svg>
+            </div>
 
-            <div class="step active">
-                <h2 class="step-title">ادخل اسمك</h2>
+            <h1 class="title">بطاقة تهنئة عيد الفطر المبارك 1446هـ</h1>
+            <p class="subtitle">أدخل اسمك للحصول على بطاقة التهنئة الخاصة بك</p>
+        </div>
+
+        <!-- ══ STEPS ══ -->
+        <div class="steps-container">
+
+            <!-- Step 1: Name input -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">اكتب اسمك</h2>
 
                 <div class="name-input-group">
                     <label for="name-input">الاسم</label>
                     <input
+                        type="text"
                         id="name-input"
                         class="name-input"
-                        type="text"
                         placeholder="مثال: محمد العمري"
                         autocomplete="off"
                         dir="rtl"
+                        autofocus
                     >
                 </div>
 
-                <div class="cache-row">
-                    <button class="btn btn-primary" onclick="generateCard()">توليد البطاقة</button>
-                    <button class="btn btn-secondary" onclick="clearImageCache()">تحديث الصورة</button>
+                <button class="btn btn-primary" onclick="generateCard()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    إنشاء البطاقة
+                </button>
+            </div>
+
+            <!-- Step 2: Result -->
+            <div class="step" id="step2">
+                <h2 class="step-title">بطاقتك جاهزة!</h2>
+
+                <div class="result-container">
+                    <div class="canvas-wrapper">
+                        <canvas id="result-canvas"></canvas>
+                    </div>
+
+                    <div class="buttons-row">
+                        <button class="btn btn-secondary" onclick="goBack()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                            </svg>
+                            رجوع
+                        </button>
+                        <button class="btn btn-primary" onclick="downloadCard()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/>
+                            </svg>
+                            تحميل البطاقة
+                        </button>
+                    </div>
                 </div>
             </div>
 
         </div>
-
-        <!-- ══ STEP 2 : النتيجة (modal) ══ -->
-        <div id="result-modal" class="result-modal" role="dialog" aria-modal="true" aria-label="بطاقتك جاهزة">
-            <div class="result-modal-inner">
-                <button class="modal-close" onclick="goBack()" aria-label="إغلاق">&#x2715;</button>
-                <h2 class="step-title">بطاقتك جاهزة</h2>
-                <canvas id="result-canvas" class="result-canvas"></canvas>
-                <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="downloadCard()">تحميل البطاقة</button>
-                    <button class="btn btn-secondary" onclick="goBack()">رجوع</button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <!-- Hidden card image used by canvas -->
-    <img id="card-img" src="cardeid.webp" alt="" crossorigin="anonymous" style="display:none">
+    <img id="card-img" class="hidden" src="cardeid.webp" alt="" crossorigin="anonymous">
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
 </body>
 </html>

@@ -10,15 +10,13 @@
    ═══════════════════════════════════════════════════════════════ */
 
 const CARD_CONFIG = {
-    imgId:      'card-img',
-    fontScale:  0.055,        /* حجم الخط – نسبة من ارتفاع الصورة */
-    nameX:      0.5,
-    nameY:      0.61,
-    fontColor:  '#111111',
-    strokeWidth: 0,
+    imgId:     'card-img',
+    fontScale: 0.055,
+    nameX:     0.5,
+    nameY:     0.61,
+    fontColor: '#111111',
 };
 
-/* ── Generate card ── */
 function generateCard() {
     const name = document.getElementById('name-input').value.trim();
 
@@ -40,7 +38,7 @@ function generateCard() {
 
     const done = () => {
         btn.disabled    = false;
-        btn.textContent = 'توليد البطاقة';
+        btn.innerHTML   = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> إنشاء البطاقة`;
     };
 
     const render = () => {
@@ -66,46 +64,30 @@ function generateCard() {
                 ctx.font = `700 ${fs}px PNUFont, Cairo, sans-serif`;
             }
 
-            const x = canvas.width  * CARD_CONFIG.nameX;
-            const y = canvas.height * CARD_CONFIG.nameY;
-
-            if (CARD_CONFIG.strokeWidth > 0) {
-                ctx.lineWidth   = CARD_CONFIG.strokeWidth;
-                ctx.strokeStyle = CARD_CONFIG.fontColor;
-                ctx.lineJoin    = 'round';
-                ctx.strokeText(name, x, y);
-            }
-
             ctx.fillStyle = CARD_CONFIG.fontColor;
-            ctx.fillText(name, x, y);
+            ctx.fillText(name, canvas.width * CARD_CONFIG.nameX, canvas.height * CARD_CONFIG.nameY);
 
             done();
-            document.getElementById('result-modal').classList.add('open');
+
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
         };
 
-        /* wait for PNUFont to load so measureText is accurate */
         (document.fonts ? document.fonts.load(fontSpec) : Promise.resolve())
             .then(drawText).catch(drawText);
     };
 
-    const loadFresh = () => {
-        img.onload  = render;
-        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (cardeid.webp). تأكد من وجود الملف.'); };
-        img.src = img.src.split('?')[0] + '?t=' + Date.now(); /* force reload */
-    };
-
     if (img.complete && img.naturalWidth > 0) {
         render();
-    } else if (img.complete && img.naturalWidth === 0) {
-        /* image already failed to load — retry */
-        loadFresh();
     } else {
         img.onload  = render;
-        img.onerror = () => { done(); alert('تعذّر تحميل صورة البطاقة (cardeid.webp). تأكد من وجود الملف.'); };
+        img.onerror = () => {
+            done();
+            alert('تعذّر تحميل صورة البطاقة (cardeid.webp). تأكد من وجود الملف.');
+        };
     }
 }
 
-/* ── Download ── */
 function downloadCard() {
     const canvas = document.getElementById('result-canvas');
     const name   = document.getElementById('name-input').value.trim();
@@ -120,34 +102,19 @@ function downloadCard() {
             URL.revokeObjectURL(link.href);
         }, 'image/jpeg', 0.95);
     } catch (e) {
-        /* canvas tainted – fallback: open image in new tab */
         const url = canvas.toDataURL('image/jpeg', 0.95);
         const win = window.open();
         win.document.write(`<img src="${url}" style="max-width:100%">`);
     }
 }
 
-/* ── Clear image cache ── */
-function clearImageCache() {
-    const img = document.getElementById(CARD_CONFIG.imgId);
-    img.onload  = () => {};
-    img.onerror = () => {};
-    img.src = img.src.split('?')[0] + '?t=' + Date.now();
-    const btn = document.querySelector('.cache-row .btn-secondary');
-    btn.textContent = 'تم التحديث';
-    setTimeout(() => { btn.textContent = 'تحديث الصورة'; }, 1500);
-}
-
-/* ── Back ── */
 function goBack() {
-    document.getElementById('result-modal').classList.remove('open');
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step1').classList.add('active');
 }
 
-/* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-
     document.getElementById('name-input').addEventListener('keypress', e => {
         if (e.key === 'Enter') generateCard();
     });
