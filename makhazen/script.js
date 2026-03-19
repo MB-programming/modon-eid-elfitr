@@ -59,9 +59,16 @@ function generateCard() {
 
         ctx.drawImage(img, 0, 0);
 
-        ctx.font         = `700 ${CARD_CONFIG.fontSize}px PNUFont, Cairo, sans-serif`;
+        /* auto-shrink font to fit 70% of card width */
+        const maxW = canvas.width * 0.70;
+        let fs = CARD_CONFIG.fontSize;
+        ctx.font         = `700 ${fs}px PNUFont, Cairo, sans-serif`;
         ctx.textAlign    = 'center';
         ctx.textBaseline = 'middle';
+        while (fs > 18 && ctx.measureText(name).width > maxW) {
+            fs -= 2;
+            ctx.font = `700 ${fs}px PNUFont, Cairo, sans-serif`;
+        }
 
         const x = canvas.width  * CARD_CONFIG.nameX;
         const y = canvas.height * CARD_CONFIG.nameY + CARD_CONFIG.nameYoffset;
@@ -117,6 +124,17 @@ function downloadCard() {
         const win = window.open();
         win.document.write(`<img src="${url}" style="max-width:100%">`);
     }
+}
+
+/* ── Clear image cache ── */
+function clearImageCache() {
+    const img = document.getElementById(CARD_CONFIG.imgId);
+    img.onload  = () => {};
+    img.onerror = () => {};
+    img.src = img.src.split('?')[0] + '?t=' + Date.now();
+    const btn = document.querySelector('.cache-row .btn-secondary');
+    btn.textContent = 'تم التحديث';
+    setTimeout(() => { btn.textContent = 'تحديث الصورة'; }, 1500);
 }
 
 /* ── Back ── */
